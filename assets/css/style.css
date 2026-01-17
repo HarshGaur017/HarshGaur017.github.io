@@ -108,6 +108,32 @@ h1, h2, h3, h4, h5, h6 {
   transform: scale(1.18);
 }
 
+/* Show intro only on home */
+#header.header-top .intro-line {
+  display: none;
+}
+
+/* Styling for intro line */
+.intro-line {
+  font-size: 18px;
+  color: #E5E7EB;
+  margin-bottom: 6px;
+  animation: fadeUp 3s ease forwards;
+}
+
+/* Subtle entrance animation */
+@keyframes fadeUp {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+
 @media (max-width: 992px) {
   #header h1 {
     font-size: 36px;
@@ -154,18 +180,35 @@ h1, h2, h3, h4, h5, h6 {
   font-weight: 400;
 }
 
-.nav-menu a:before {
+.nav-menu a {
+  transition: color 0.3s ease, transform 0.3s ease;
+}
+
+.nav-menu a::before {
   content: "";
   position: absolute;
   width: 0;
   height: 2px;
-  bottom: -4px;
-  left: 0;
+  bottom: -6px;
+  left: 50%;
+  transform: translateX(-100%);
   background-color: #4DA3FF;
-  visibility: hidden;
-  width: 0px;
-  transition: all 0.3s ease-in-out 0s;
+  transition: width 0.35s ease;
 }
+
+.nav-menu a:hover,
+.nav-menu .active > a,
+.nav-menu li:hover > a {
+  color: #4DA3FF;
+  transform: translateY(-5px);
+}
+
+.nav-menu a:hover::before,
+.nav-menu .active > a::before,
+.nav-menu li:hover > a::before {
+  width: 28px;
+}
+
 
 .nav-menu a:hover:before, .nav-menu li:hover > a:before, .nav-menu .active > a:before {
   visibility: visible;
@@ -1090,3 +1133,29 @@ section .container {
     transform: translateX(-50%);
   }
 }
+
+.intro-line {
+  font-family: "Poppins", sans-serif;
+  font-size: 30px;
+  letter-spacing: 2px;
+  color: #CBD5E1;
+  margin-bottom: 6px;
+}
+
+.wave {
+  display: inline-block;
+  transform-origin: 70% 70%;
+  animation: wave-animation 2.5s infinite;
+}
+
+@keyframes wave-animation {
+  0% { transform: rotate(0deg); }
+  10% { transform: rotate(14deg); }
+  20% { transform: rotate(-8deg); }
+  30% { transform: rotate(14deg); }
+  40% { transform: rotate(-4deg); }
+  50% { transform: rotate(10deg); }
+  60% { transform: rotate(0deg); }
+  100% { transform: rotate(0deg); }
+}
+
