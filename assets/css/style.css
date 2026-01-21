@@ -1260,11 +1260,4 @@ section .container {
   }
 }
 
-@media (max-width: 768px) {
-  html,
-  body {
-    background-attachment: scroll;
-  }
-}
-
 
