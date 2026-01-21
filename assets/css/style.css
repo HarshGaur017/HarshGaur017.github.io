@@ -9,7 +9,7 @@ body {
     ),
     url("/assets/img/background/bg2.jpg");
   background-repeat: no-repeat;
-  background-position: center center;
+  background-position: center top;
   background-size: cover;
   background-attachment: fixed;
 }
