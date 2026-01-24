@@ -67,7 +67,10 @@
 <!--          <li><a href="#projects"> <span>Projects</span></a></li>-->
           <li><a href="#portfolio"> <span>Projects</span></a></li>
           <li><a href="#skills"> <span>Skills</span></a></li>
-          <li><a href="https://drive.google.com/file/d/1J2yEWuiA24XZeHWNpWx-2G1pURvoEn1L/view?usp=drive_link" target="_blank"> <span>Resume</span></a></li>
+          <li>
+            <a href="#resume"><span>Resume</span></a>
+          </li>
+
           <!-- <li><a href="#links"> <span>Resume & Links</span></a></li> -->
           <li><a href="#contacts"> <span>Contact</span></a></li>
 
@@ -428,80 +431,102 @@
 
 
   <!-- Start Project Section -->
-  <section id="portfolio" class="portfolio">
-    <div class="container">
+ <section id="portfolio" class="portfolio">
+  <div class="container">
 
-      <div class="section-title">
-        <h2>Projects</h2>
-      </div>
-
-      <div class="row">
-        <div class="col-lg-12 d-flex justify-content-center">
-          <ul id="portfolio-flters">
-            <li data-filter="*" class="filter-active">All</li>
-            <li data-filter=".filter-app">Web/App</li>
-            <li data-filter=".filter-project">Project</li>
-          </ul>
-        </div>
-      </div>
-
-      <div class="row portfolio-container">
-
-        <div class="col-lg-4 col-md-6 portfolio-item filter-app">
-          <center><h4>E-Commerce Website</h4></center>
-          <div class="portfolio-wrap">
-            <img src="assets/img/project/ecommerce.png" class="img-fluid" alt="" >
-            <div class="portfolio-info">
-              
-              <div class="portfolio-links">
-                <a href="projects/ecommerce.html" data-gall="portfolioDetailsGallery" data-vbtype="iframe" class="venobox" title="Project Details"><i class="bx bx-info-circle"></i></a>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <div class="col-lg-4 col-md-6 portfolio-item filter-app">
-          <center><h4>News App</h4></center>
-          <div class="portfolio-wrap">
-            <img src="assets/img/project/news.jpg" class="img-fluid" alt="" >
-            <div class="portfolio-info">
-              
-              <div class="portfolio-links">
-                <a href="projects/newsapp.html" data-gall="portfolioDetailsGallery" data-vbtype="iframe" class="venobox" title="Project Details"><i class="bx bx-info-circle"></i></a>
-              </div>
-            </div>
-          </div>
-        </div>
-
-      <div class="col-lg-4 col-md-6 portfolio-item filter-project">
-          <center><h4>RFID Door Lock Access System</h4></center>
-          <div class="portfolio-wrap">
-            <img src="assets/img/project/rfid.png" class="img-fluid" alt="" >
-            <div class="portfolio-info">
-              
-              <div class="portfolio-links">
-                <a href="projects/rfid.html" data-gall="portfolioDetailsGallery" data-vbtype="iframe" class="venobox" title="Project Details"><i class="bx bx-info-circle"></i></a>
-              </div>
-            </div>
-          </div>
-        </div>
-
-      <div class="col-lg-4 col-md-6 portfolio-item filter-app">
-          <center><h4>Voice Assistant AI - Alice</h4></center>
-          <div class="portfolio-wrap">
-            <img src="assets/img/project/voice assistant.png" class="img-fluid" alt="" >
-            <div class="portfolio-info">
-              
-              <div class="portfolio-links">
-                <a href="projects/voice_assistant_alice.html" data-gall="portfolioDetailsGallery" data-vbtype="iframe" class="venobox" title="Project Details"><i class="bx bx-info-circle"></i></a>
-              </div>
-            </div>
-          </div>
-        </div>
-
-      </div>
+    <div class="section-title">
+      <h2>Projects</h2>
     </div>
-  </section>
+
+    <div class="row">
+
+      <!-- 1️⃣ AI Business Assistant -->
+      <div class="col-lg-6 col-md-12">
+        <div class="project-card">
+          <h3>AI-Powered Business Assistant (Multi-Tenant RAG Platform)</h3>
+
+          <p class="project-desc">
+            Designed and built a multi-tenant AI SaaS platform that allows organizations to
+            securely upload internal documents and query them using Retrieval-Augmented
+            Generation (RAG). Focused on reducing hallucinations while delivering
+            accurate, context-aware responses at scale.
+          </p>
+
+          <p class="project-desc">
+            Implemented intelligent document chunking, vector embeddings, semantic retrieval,
+            strict prompt constraints, and organization-level data isolation with role-based
+            access control.
+          </p>
+
+          <p class="project-tech">
+            <strong>Tech:</strong> Node.js, PostgreSQL, pgvector, React Native, LLMs, RAG 
+          </p>
+
+          <div class="project-links">
+            <a href="#" target="_blank">Project Overview</a>
+          </div>
+        </div>
+      </div>
+
+      <!-- 2️⃣ MulltiplyR -->
+      <div class="col-lg-6 col-md-12">
+        <div class="project-card">
+          <h3>MulltiplyR — B2B Retail Marketplace App</h3>
+
+          <p class="project-desc">
+            Retailer-side B2B marketplace application connecting retailers with distributors.
+            Supports 10,000+ SKUs with real-time stock updates, GST invoicing, and
+            AI-powered reorder predictions.
+          </p>
+
+          <p class="project-desc">
+            Optimized startup time and rendering performance by ~40% using Hermes,
+            JSI-based optimizations, bundle splitting, and efficient state management.
+            Implemented deep linking, multilingual support, RBAC, and OTA updates.
+          </p>
+
+          <p class="project-tech">
+            <strong>Tech:</strong> React Native, Node.js, PostgreSQL, Redux, LLMs
+          </p>
+
+          <div class="project-links">
+            <a href="https://play.google.com/store/apps/details?id=com.mulltiply.mulltiplyr" target="_blank">Play Store – MulltiplyR</a>
+          </div>
+        </div>
+      </div>
+
+      <!-- 3️⃣ MulltiplyD -->
+      <div class="col-lg-6 col-md-12">
+        <div class="project-card">
+          <h3>MulltiplyD — Distributor Management App</h3>
+
+          <p class="project-desc">
+            Distributor-side mobile application for managing orders, inventory, and delivery
+            assignments. Seamlessly integrated with the Mulltiply retailer ecosystem
+            to enable real-time data synchronization.
+          </p>
+
+          <p class="project-desc">
+            Improved operational efficiency by supporting multi-user roles,
+            secure communication flows, real-time updates, and performance-optimized
+            UI rendering for daily operational use.
+          </p>
+
+          <p class="project-tech">
+            <strong>Tech:</strong> React Native
+          </p>
+
+          <div class="project-links">
+            <a href="https://play.google.com/store/apps/details?id=com.mulltiply.mulltiplyD" target="_blank">Play Store – MulltiplyD</a>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+
 
   <!-- End Project Section -->
 
@@ -509,46 +534,107 @@
 
   <!-- Start Skills Section -->
 
-  <section id="skills" class="services">
-    <div class="container">
-      <div class="section-title">
-        <h2>Skills</h2>
-      </div>
-      <div class="row">
-        <div class="col-lg-12" data-aos="fade-up">
-          <div class="col-md-12 mt-4 mt-md-0 icon-box" data-aos="fade-up" data-aos-delay="100" style="background:#fff">
-            <h4 style="text-align:left;color:#09203a">Languages</h4>
-                <p style="text-align:left;">
-                  <img src="https://www.vectorlogo.zone/logos/java/java-horizontal.svg" alt="vectorlogo.zone" height="50" width="120">
-                  <img src="https://www.vectorlogo.zone/logos/python/python-ar21.svg" alt="vectorlogo.zone" height="70" width="120">
-                  <img src="https://www.vectorlogo.zone/logos/w3_html5/w3_html5-ar21.svg" alt="vectorlogo.zone">
-                  <img src="https://upload.wikimedia.org/wikipedia/commons/d/d5/CSS3_logo_and_wordmark.svg" alt="upload.wikimedia.org" height="60" width="90">
-                  <img src="https://www.vectorlogo.zone/logos/javascript/javascript-horizontal.svg" alt="vectorlogo.zone" height="70" width="170">
-                  <img src="https://www.vectorlogo.zone/logos/dartlang/dartlang-ar21.svg" alt="vectorlogo.zone" height="70" width="170">
+ <section id="skills" class="services">
+  <div class="container">
 
-                </p>
-            </div>
-            <div class="col-md-12 mt-4 mt-md-0 icon-box" data-aos="lefade-up" data-aos-delay="100" style="background:#fff">
-              <h4 style="text-align:left;color:#09203a">Frameworks</h4>
-                <p style="text-align:left;">
-                  <img src="https://www.vectorlogo.zone/logos/flutterio/flutterio-ar21.svg" alt="vectorlogo.zone">
-                  <img src="https://www.vectorlogo.zone/logos/getbootstrap/getbootstrap-ar21.svg" alt="vectorlogo.zone">
-                  <img src="https://www.vectorlogo.zone/logos/opencv/opencv-ar21.svg" alt="vectorlogo.zone">
-              </p>
-          </div>
-          <div class="col-md-12 mt-4 mt-md-0 icon-box" data-aos="lefade-up" data-aos-delay="100" style="background:#fff">
-              <h4 style="text-align:left;color:#09203a">Tools</h4>
-                <p style="text-align:left;">
-                  <img src="https://www.vectorlogo.zone/logos/git-scm/git-scm-ar21.svg" alt="vectorlogo.zone">
-                  <img src="https://www.vectorlogo.zone/logos/firebase/firebase-ar21.svg" alt="vectorlogo.zone">
-                  <img src="https://www.vectorlogo.zone/logos/google_cloud/google_cloud-ar21.svg" alt="vectorlogo.zone">
-                  
-              </p>
-          </div>
-        </div>
+    <div class="section-title">
+      <h2>Skills</h2>
+    </div>
+
+    <!-- Languages -->
+    <div class="skills-group">
+      <h4 class="skills-heading">Languages</h4>
+      <div class="skills-chip-container">
+        <div class="skill-chip"><i class="bx bxl-html5"></i><span>HTML5</span></div>
+        <div class="skill-chip"><i class="bx bxl-css3"></i><span>CSS3</span></div>
+        <div class="skill-chip"><i class="bx bxl-javascript"></i><span>JavaScript</span></div>
+        <div class="skill-chip"><i class='bxl  bx-code-alt'></i> <span>TypeScript</span></div>
+        <div class="skill-chip"><i class="bx bxl-python"></i><span>Python</span></div>
+        <div class="skill-chip"><i class='bx bxl-java'></i><span>Java</span></div>
+        <div class="skill-chip"><i class="bx bx-data"></i><span>SQL</span></div>
+        <div class="skill-chip"><i class="bx bxl-dart"></i><span>Dart</span></div>
       </div>
     </div>
-  </section>
+
+    <!-- Frameworks -->
+    <div class="skills-group">
+      <h4 class="skills-heading">Frameworks</h4>
+      <div class="skills-chip-container">
+        <div class="skill-chip"><i class="bx bxl-react"></i><span>React Native</span></div>
+        <div class="skill-chip"><i class="bx bxl-react"></i><span>React</span></div>
+        <div class="skill-chip"><i class="bx bxl-nodejs"></i><span>Node.js</span></div>
+        <div class="skill-chip"><i class="bx bx-server"></i><span>Express.js</span></div>
+        <div class="skill-chip"><i class="bx bxl-flutter"></i><span>Flutter</span></div>
+      </div>
+    </div>
+
+    <!-- Libraries -->
+    <div class="skills-group">
+      <h4 class="skills-heading">Libraries</h4>
+      <div class="skills-chip-container">
+        <div class="skill-chip"><i class="bx bx-layer"></i><span>Redux</span></div>
+        <div class="skill-chip"><i class="bx bx-navigation"></i><span>React Navigation</span></div>
+        <div class="skill-chip"><i class="bx bx-run"></i><span>Reanimated</span></div>
+        <div class="skill-chip"><i class="bx bx-list-ul"></i><span>FlashList</span></div>
+        <div class="skill-chip"><i class="bx bx-chip"></i><span>MMKV</span></div>
+        <div class="skill-chip"><i class="bx bx-paint"></i><span>Skia</span></div>
+      </div>
+    </div>
+
+    <!-- Databases -->
+    <div class="skills-group">
+      <h4 class="skills-heading">Databases</h4>
+      <div class="skills-chip-container">
+        <div class="skill-chip"><i class="bx bx-data"></i><span>PostgreSQL</span></div>
+        <div class="skill-chip"><i class="bx bx-leaf"></i><span>MongoDB</span></div>
+        <div class="skill-chip"><i class="bx bx-database"></i><span>MySQL</span></div>
+        <div class="skill-chip"><i class="bx bxl-firebase"></i><span>Firebase</span></div>
+      </div>
+    </div>
+
+    <!-- AI & Search -->
+    <div class="skills-group">
+      <h4 class="skills-heading">AI & Search</h4>
+      <div class="skills-chip-container">
+        <div class="skill-chip"><i class="bx bx-brain"></i><span>LLM Integration</span></div>
+        <div class="skill-chip"><i class="bx bx-message-rounded-dots"></i><span>Prompt Engineering</span></div>
+        <div class="skill-chip"><i class="bx bx-vector"></i><span>Vector Embeddings</span></div>
+        <div class="skill-chip"><i class="bx bx-search"></i><span>Semantic Retrieval</span></div>
+      </div>
+    </div>
+
+    <!-- Tools -->
+    <div class="skills-group">
+      <h4 class="skills-heading">Tools & Platforms</h4>
+      <div class="skills-chip-container">
+        <div class="skill-chip"><i class="bx bxl-git"></i><span>Git</span></div>
+        <div class="skill-chip"><i class="bx bxl-github"></i><span>GitHub</span></div>
+        <div class="skill-chip"><i class="bx bx-refresh"></i><span>CI/CD</span></div>
+        <div class="skill-chip"><i class="bx bx-mobile"></i><span>Expo EAS</span></div>
+        <div class="skill-chip"><i class="bx bx-line-chart"></i><span>Mixpanel</span></div>
+        <div class="skill-chip"><i class="bx bx-shield"></i><span>SonarQube</span></div>
+        <div class="skill-chip"><i class="bx bx-bug"></i><span>Sentry</span></div>
+        <div class="skill-chip"><i class="bx bx-send"></i><span>Postman</span></div>
+        <div class="skill-chip"><i class="bx bx-pulse"></i><span>React Profiler</span></div>
+      </div>
+    </div>
+
+    <!-- Architecture -->
+    <div class="skills-group">
+      <h4 class="skills-heading">Architecture & Patterns</h4>
+      <div class="skills-chip-container">
+        <div class="skill-chip"><i class="bx bx-layer"></i><span>MVVM</span></div>
+        <div class="skill-chip"><i class="bx bx-buildings"></i><span>Clean Architecture</span></div>
+        <div class="skill-chip"><i class="bx bx-grid-alt"></i><span>Modular Architecture</span></div>
+        <div class="skill-chip"><i class="bx bx-lock"></i><span>RBAC</span></div>
+        <div class="skill-chip"><i class="bx bx-network-chart"></i><span>Multi-Tenant Systems</span></div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+
 
   <!-- End Skills Section -->
 
@@ -556,24 +642,35 @@
 
 
   <!-- Start Links section -->
-  <section id="links" class="services">
-    <div class="container">
-      <div class="section-title">
-        <h2>Resume & Links</h2>
-      </div>
-      <div class="row">
-        <div class="col-md-3 mt-4 mt-md-0 icon-box" data-aos="fade-up" data-aos-delay="100">
-          <a href="https://drive.google.com/file/d/1J2yEWuiA24XZeHWNpWx-2G1pURvoEn1L/view?usp=drive_link" target="_blank"><div class="icon"><i class="icofont-page"></i></div></a>
-          <h4 class="title"><a href="https://drive.google.com/file/d/1J2yEWuiA24XZeHWNpWx-2G1pURvoEn1L/view?usp=drive_link" target="_blank">Resume</a></h4>
-          <p class="description" style="color:#fff;">The link contains downloadable resume</p>
-        </div>
-        <div class="col-md-3 mt-4 mt-md-0 icon-box" data-aos="fade-up">
-          <a href="https://github.com/rajaprerak/LeetCode_Problems" target="_blank"><div class="icon"><i class="icofont-link"></i></div></a>
-          <h4 class="title"><a href="https://github.com/rajaprerak/LeetCode_Problems" target="_blank">LeetCode Repository</a></h4>
-          <p class="description" style="color:#fff;"> The github repository contains leetcode problems solution in python.</p>
-        </div>
+  <section id="resume" class="services">
+  <div class="container">
+
+    <div class="section-title">
+      <h2>Resume</h2>
+    </div>
+
+    <div class="row">
+      <div class="col-lg-12 icon-box">
+        <p style="margin-bottom:14px;">
+          View or download my latest resume:
+          <a href="https://drive.google.com/file/d/1G5moTFopYisCTNMDHGs63Z7v2jt8dVUy/view?usp=sharing"
+             target="_blank">
+            Open Resume ↗
+          </a>
+        </p>
+
+        <iframe
+          src="https://drive.google.com/file/d/1G5moTFopYisCTNMDHGs63Z7v2jt8dVUy/preview"
+          width="100%"
+          height="790"
+          style="border-radius:12px; border:none;">
+        </iframe>
       </div>
     </div>
+
+  </div>
+</section>
+
   </section> <!--End Links Section -->
 
 
@@ -659,7 +756,11 @@
 
   
   <script src="assets/js/main.js"></script>
+<footer class="site-footer">
+  © 2026 Harsh Gaur | Built with ☕, 💻 & ❤️
+</footer>
 
 </body>
+
 
 </html>

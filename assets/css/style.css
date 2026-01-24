@@ -514,40 +514,99 @@ section .container {
   font-size: 14px;
 }
 
+
+/*--------------------------------------------------------------
+# Projects
+--------------------------------------------------------------*/
+.project-card {
+  background: #0B1F3A;
+  border: 1px solid rgba(77, 163, 255, 0.18);
+  border-radius: 14px;
+  padding: 26px;
+  margin-bottom: 30px;
+  transition: transform 0.3s ease, border 0.3s ease;
+}
+
+.project-card:hover {
+  transform: translateY(-6px);
+  border-color: #4DA3FF;
+}
+
+.project-card h3 {
+  color: #E5E7EB;
+  font-weight: 700;
+  margin-bottom: 12px;
+}
+
+.project-desc {
+  color: #CBD5E1;
+  font-size: 15px;
+  line-height: 1.7;
+  margin-bottom: 14px;
+}
+
+.project-tech {
+  color: #38BDF8;
+  font-size: 14px;
+  margin-bottom: 14px;
+}
+
+.project-links a {
+  display: inline-block;
+  margin-right: 14px;
+  color: #4DA3FF;
+  font-weight: 600;
+}
+
+.project-links a:hover {
+  text-decoration: underline;
+}
+
+
 /*--------------------------------------------------------------
 # Skills
 --------------------------------------------------------------*/
-.skills .progress {
-  height: 50px;
-  display: block;
-  background: none;
+.skills-group {
+  margin-bottom: 32px;
 }
 
-.skills .progress .skill {
-  padding: 0;
-  margin: 0 0 6px 0;
-  text-transform: uppercase;
-  display: block;
+.skills-heading {
+  text-align: left;
+  font-size: 18px;
+  font-weight: 700;
+  color: #E5E7EB;
+  margin-bottom: 14px;
+}
+
+.skills-chip-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 14px;
+}
+
+.skill-chip {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 14px;
+  background: linear-gradient(135deg, #0B1F3A, #020617);
+  border: 1px solid rgba(77, 163, 255, 0.28);
+  border-radius: 10px;
+  font-size: 14px;
   font-weight: 600;
-  font-family: "Poppins", sans-serif;
-  color: #fff;
+  color: #E5E7EB;
+  transition: transform 0.25s ease, border 0.25s ease, background 0.25s ease;
 }
 
-.skills .progress .skill .val {
-  float: right;
-  font-style: normal;
+.skill-chip i {
+  font-size: 18px;
+  color: #38BDF8;
 }
 
-.skills .progress-bar-wrap {
-  background: rgba(255, 255, 255, 0.15);
-}
-
-.skills .progress-bar {
-  width: 1px;
-  height: 10px;
-  transition: .9s;
-  background-color: #4DA3FF
-;
+.skill-chip:hover {
+  transform: translateY(-4px);
+  border-color: #4DA3FF;
+  background: linear-gradient(135deg, #0F2A52, #020617);
 }
 
 /*--------------------------------------------------------------
@@ -1275,6 +1334,32 @@ section .container {
 
   .education-logo img {
     width: 72px;
+  }
+}
+
+/* =========================
+   Global Footer
+========================= */
+
+.site-footer {
+  position: fixed;
+  bottom: 12px;
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: 13px;
+  color: #CBD5E1;
+  opacity: 0.85;
+  z-index: 1;
+  font-family: "Poppins", sans-serif;
+  pointer-events: none;
+}
+
+@media (max-width: 768px) {
+  .site-footer {
+    font-size: 12px;
+    bottom: 8px;
+    text-align: center;
+    padding: 0 12px;
   }
 }
 
