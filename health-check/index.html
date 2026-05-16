@@ -1,0 +1,971 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Emergency Health Check</title>
+  <style>
+    :root {
+      --pink: #ff8fc7;
+      --pink-soft: #ffd4e8;
+      --pink-light: #fff0f7;
+      --purple: #b993ff;
+      --purple-soft: #eadcff;
+      --cream: #fffaf1;
+      --white: #ffffff;
+      --text: #57324d;
+      --shadow: 0 24px 70px rgba(161, 72, 132, 0.24);
+      --ring: rgba(255, 143, 199, 0.34);
+      --glow: 0 0 60px rgba(255, 255, 255, 0.88), 0 0 120px rgba(255, 143, 199, 0.34);
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    html {
+      min-height: 100%;
+      background: var(--pink-light);
+    }
+
+    body {
+      min-height: 100vh;
+      margin: 0;
+      overflow-x: hidden;
+      font-family: "Trebuchet MS", "Segoe UI", system-ui, -apple-system, sans-serif;
+      color: var(--text);
+      background:
+        radial-gradient(circle at 50% -10%, rgba(255, 255, 255, 0.96) 0 13%, transparent 32%),
+        radial-gradient(circle at 12% 12%, rgba(255, 255, 255, 0.95) 0 8%, transparent 9%),
+        radial-gradient(circle at 88% 18%, rgba(234, 220, 255, 0.9) 0 10%, transparent 11%),
+        radial-gradient(circle at 18% 82%, rgba(255, 212, 232, 0.9) 0 12%, transparent 13%),
+        linear-gradient(135deg, #fff7fb 0%, #ffe0ef 42%, #eee0ff 100%);
+    }
+
+    body::before,
+    body::after {
+      content: "";
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    body::before {
+      background-image:
+        radial-gradient(circle, rgba(255, 255, 255, 0.84) 0 1px, transparent 2px),
+        radial-gradient(circle, rgba(255, 143, 199, 0.42) 0 3px, transparent 4px),
+        radial-gradient(circle, rgba(185, 147, 255, 0.36) 0 2px, transparent 3px);
+      background-size: 44px 44px, 88px 88px, 132px 132px;
+      animation: sparkleDrift 18s linear infinite, dreamGlow 6s ease-in-out infinite alternate;
+    }
+
+    body::after {
+      background:
+        radial-gradient(circle at 50% 45%, transparent 0 26%, rgba(255, 250, 241, 0.42) 58%, rgba(255, 255, 255, 0.68) 100%);
+    }
+
+    body.chaos-mode {
+      animation: dreamyBreath 4s ease-in-out infinite alternate;
+    }
+
+    button,
+    audio {
+      font: inherit;
+    }
+
+    button {
+      border: 0;
+      cursor: pointer;
+      touch-action: manipulation;
+    }
+
+    .app {
+      position: relative;
+      z-index: 1;
+      display: grid;
+      min-height: 100vh;
+      place-items: center;
+      padding: 24px;
+    }
+
+    .screen {
+      position: absolute;
+      inset: 0;
+      display: grid;
+      place-items: center;
+      padding: 24px;
+      opacity: 0;
+      visibility: hidden;
+      transform: translateY(28px) scale(0.98);
+      transition: opacity 520ms ease, transform 520ms ease, visibility 520ms ease;
+    }
+
+    .screen.active {
+      opacity: 1;
+      visibility: visible;
+      transform: translateY(0) scale(1);
+    }
+
+    .screen.exit {
+      opacity: 0;
+      transform: translateY(-26px) scale(0.96);
+    }
+
+    .panel {
+      width: min(680px, 100%);
+      text-align: center;
+      padding: clamp(26px, 5vw, 54px);
+      border: 2px solid rgba(255, 255, 255, 0.78);
+      border-radius: 32px;
+      background: rgba(255, 255, 255, 0.62);
+      box-shadow: var(--shadow), var(--glow);
+      backdrop-filter: blur(18px);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .panel::before {
+      content: "";
+      position: absolute;
+      inset: -50%;
+      background:
+        radial-gradient(circle, rgba(255,255,255,0.62) 0 5%, transparent 6%),
+        radial-gradient(circle, rgba(255,143,199,0.22) 0 7%, transparent 8%);
+      background-size: 120px 120px, 180px 180px;
+      opacity: 0.54;
+      animation: panelDream 16s linear infinite;
+      pointer-events: none;
+    }
+
+    .panel > * {
+      position: relative;
+      z-index: 1;
+    }
+
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 36px;
+      padding: 7px 15px;
+      margin-bottom: 18px;
+      border-radius: 999px;
+      color: #8a3d78;
+      background: rgba(255, 255, 255, 0.82);
+      box-shadow: 0 8px 22px rgba(161, 72, 132, 0.12);
+      font-weight: 800;
+      font-size: 0.9rem;
+    }
+
+    h1,
+    h2,
+    p {
+      margin-top: 0;
+    }
+
+    h1 {
+      margin-bottom: 12px;
+      font-size: clamp(2.15rem, 8vw, 5rem);
+      line-height: 1.02;
+      letter-spacing: 0;
+      color: #7d3b6f;
+      text-wrap: balance;
+    }
+
+    h2 {
+      margin-bottom: 16px;
+      font-size: clamp(1.55rem, 5vw, 3.1rem);
+      line-height: 1.06;
+      color: #7d3b6f;
+      text-wrap: balance;
+    }
+
+    .subtitle {
+      margin-bottom: 30px;
+      color: #7a5872;
+      font-size: clamp(1.05rem, 3vw, 1.35rem);
+      font-weight: 700;
+    }
+
+    .button-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 14px;
+      margin-top: 18px;
+    }
+
+    .symptom-btn {
+      min-height: 64px;
+      padding: 15px 16px;
+      border: 2px solid rgba(255, 255, 255, 0.9);
+      border-radius: 22px;
+      color: #67325c;
+      background: linear-gradient(180deg, var(--white), #ffe1f0);
+      box-shadow: 0 13px 26px rgba(161, 72, 132, 0.14);
+      font-size: 1rem;
+      font-weight: 900;
+      transition: transform 180ms ease, box-shadow 180ms ease, filter 180ms ease;
+    }
+
+    .symptom-btn:hover {
+      transform: translateY(-5px) rotate(-1deg);
+      box-shadow: 0 18px 34px rgba(161, 72, 132, 0.2);
+      filter: saturate(1.04);
+    }
+
+    .symptom-btn:active {
+      transform: translateY(-1px) scale(0.98);
+    }
+
+    .medicine-stage {
+      display: grid;
+      place-items: center;
+      gap: 28px;
+    }
+
+    .capsule-button {
+      position: relative;
+      width: min(330px, 76vw);
+      aspect-ratio: 2 / 1;
+      border-radius: 999px;
+      background: transparent;
+      filter: drop-shadow(0 28px 34px rgba(121, 53, 110, 0.24));
+      transition: transform 240ms ease;
+    }
+
+    .capsule-button:hover {
+      transform: translateY(-8px) scale(1.03);
+    }
+
+    .capsule-button:focus-visible,
+    .symptom-btn:focus-visible {
+      outline: 5px solid var(--ring);
+      outline-offset: 4px;
+    }
+
+    .capsule-half {
+      position: absolute;
+      top: 0;
+      width: 51%;
+      height: 100%;
+      overflow: hidden;
+      transition: transform 840ms cubic-bezier(0.2, 0.88, 0.24, 1.1), filter 500ms ease;
+    }
+
+    .capsule-half::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(135deg, rgba(255,255,255,0.78), rgba(255,255,255,0.1) 35%, transparent 60%);
+    }
+
+    .capsule-left {
+      left: 0;
+      border-radius: 999px 0 0 999px;
+      background: linear-gradient(135deg, #ff79b9 0%, #ffb8db 100%);
+      border: 4px solid rgba(255, 255, 255, 0.95);
+      transform-origin: 92% 50%;
+    }
+
+    .capsule-right {
+      right: 0;
+      border-radius: 0 999px 999px 0;
+      background: linear-gradient(135deg, #d7c2ff 0%, #fff7fb 100%);
+      border: 4px solid rgba(255, 255, 255, 0.95);
+      transform-origin: 8% 50%;
+    }
+
+    .capsule-seam {
+      position: absolute;
+      top: 10%;
+      left: 50%;
+      width: 7px;
+      height: 80%;
+      border-radius: 999px;
+      background: rgba(255, 255, 255, 0.9);
+      transform: translateX(-50%);
+      box-shadow: 0 0 0 4px rgba(255, 255, 255, 0.24);
+      transition: opacity 280ms ease;
+    }
+
+    .capsule-shine {
+      position: absolute;
+      top: 18%;
+      left: 17%;
+      width: 26%;
+      height: 16%;
+      border-radius: 999px;
+      background: rgba(255, 255, 255, 0.66);
+      transform: rotate(-16deg);
+    }
+
+    .tap-hint {
+      margin: 0;
+      color: #8b557e;
+      font-weight: 900;
+      animation: pulseHint 1.3s ease-in-out infinite;
+    }
+
+    .screen.opened .capsule-left {
+      transform: translateX(-78px) translateY(-36px) rotate(-32deg);
+      filter: blur(0.2px);
+    }
+
+    .screen.opened .capsule-right {
+      transform: translateX(78px) translateY(36px) rotate(32deg);
+      filter: blur(0.2px);
+    }
+
+    .screen.opened .capsule-seam,
+    .screen.opened .tap-hint {
+      opacity: 0;
+    }
+
+    .reveal-photo {
+      position: absolute;
+      left: 50%;
+      top: 50%;
+      width: min(280px, 66vw);
+      aspect-ratio: 4 / 5;
+      object-fit: cover;
+      object-position: center;
+      border-radius: 34px;
+      border: 8px solid var(--white);
+      box-shadow: 0 30px 80px rgba(126, 59, 111, 0.34), 0 0 0 18px rgba(255, 255, 255, 0.2), 0 0 80px rgba(255, 143, 199, 0.42);
+      opacity: 0;
+      transform: translate(-50%, -50%) scale(0.05) rotate(-10deg);
+      pointer-events: none;
+      z-index: 4;
+    }
+
+    .reveal-photo.show {
+      animation: photoCashIn 980ms cubic-bezier(0.16, 1.18, 0.38, 1) forwards;
+    }
+
+    .cash-burst {
+      position: absolute;
+      left: 50%;
+      top: 50%;
+      width: 8px;
+      height: 8px;
+      pointer-events: none;
+      z-index: 6;
+    }
+
+    .coin {
+      position: absolute;
+      left: 0;
+      top: 0;
+      width: 38px;
+      height: 38px;
+      display: grid;
+      place-items: center;
+      border-radius: 999px;
+      background: #fff7bf;
+      border: 3px solid #ffd86b;
+      color: #b36d00;
+      font-weight: 1000;
+      opacity: 0;
+      animation: coinPop 980ms ease-out forwards;
+    }
+
+    .chaos-layer {
+      position: fixed;
+      inset: 0;
+      overflow: hidden;
+      pointer-events: none;
+      z-index: 5;
+    }
+
+    .cat {
+      position: absolute;
+      bottom: -180px;
+      width: clamp(96px, 16vw, 170px);
+      height: clamp(96px, 16vw, 170px);
+      display: grid;
+      place-items: center;
+      border-radius: 30px;
+      background: rgba(255, 255, 255, 0.34);
+      box-shadow: 0 18px 48px rgba(100, 45, 92, 0.18), 0 0 45px rgba(255, 255, 255, 0.68);
+      overflow: hidden;
+      animation: floatCat var(--duration, 8s) linear forwards, catBoop 900ms ease-in-out infinite alternate;
+    }
+
+    .cat iframe {
+      width: 135%;
+      height: 135%;
+      border: 0;
+      transform: scale(1.16);
+      pointer-events: none;
+    }
+
+    .cat::after {
+      content: attr(data-vibe);
+      position: absolute;
+      top: -16px;
+      right: -12px;
+      padding: 4px 8px;
+      border-radius: 999px;
+      background: #fff6fc;
+      color: #8d477e;
+      font-size: 0.74rem;
+      font-weight: 1000;
+      box-shadow: 0 8px 18px rgba(100, 45, 92, 0.12);
+      z-index: 2;
+    }
+
+    .dialogue {
+      position: fixed;
+      left: 50%;
+      bottom: max(18px, env(safe-area-inset-bottom));
+      z-index: 8;
+      width: min(720px, calc(100% - 28px));
+      padding: 20px;
+      border: 2px solid rgba(255, 255, 255, 0.9);
+      border-radius: 28px;
+      background: rgba(255, 255, 255, 0.82);
+      box-shadow: var(--shadow);
+      backdrop-filter: blur(18px);
+      opacity: 0;
+      transform: translate(-50%, 34px) scale(0.97);
+      visibility: hidden;
+      transition: opacity 520ms ease, transform 520ms ease, visibility 520ms ease;
+    }
+
+    .dialogue.show {
+      opacity: 1;
+      transform: translate(-50%, 0) scale(1);
+      visibility: visible;
+    }
+
+    .dialogue p {
+      margin-bottom: 14px;
+      font-size: clamp(0.98rem, 2.5vw, 1.18rem);
+      line-height: 1.45;
+      font-weight: 900;
+      color: #6d3d63;
+    }
+
+    .dialogue audio {
+      width: 100%;
+      height: 44px;
+      accent-color: var(--pink);
+    }
+
+    .dialogue-actions {
+      display: flex;
+      justify-content: center;
+      margin-top: 14px;
+    }
+
+    .hate-btn {
+      min-height: 50px;
+      padding: 12px 20px;
+      border: 2px solid rgba(255, 255, 255, 0.92);
+      border-radius: 999px;
+      color: #71335f;
+      background: linear-gradient(135deg, #fff, #ffd7ea 45%, #e9dcff);
+      box-shadow: 0 14px 28px rgba(126, 59, 111, 0.18);
+      font-weight: 1000;
+      transition: transform 180ms ease, box-shadow 180ms ease;
+    }
+
+    .hate-btn:hover {
+      transform: translateY(-4px) rotate(1deg);
+      box-shadow: 0 18px 36px rgba(126, 59, 111, 0.24);
+    }
+
+    .hate-btn:active {
+      transform: translateY(0) scale(0.97);
+    }
+
+    .mini-toast {
+      position: fixed;
+      top: 18px;
+      left: 50%;
+      z-index: 9;
+      width: min(520px, calc(100% - 28px));
+      padding: 12px 16px;
+      border-radius: 999px;
+      text-align: center;
+      background: rgba(255, 255, 255, 0.84);
+      box-shadow: 0 14px 34px rgba(126, 59, 111, 0.16);
+      color: #7c3a70;
+      font-weight: 1000;
+      opacity: 0;
+      transform: translate(-50%, -18px);
+      transition: opacity 360ms ease, transform 360ms ease;
+      pointer-events: none;
+    }
+
+    .mini-toast.show {
+      opacity: 1;
+      transform: translate(-50%, 0);
+    }
+
+    .heart {
+      position: fixed;
+      z-index: 3;
+      color: rgba(255, 103, 181, 0.74);
+      font-size: 1.2rem;
+      pointer-events: none;
+      animation: heartFloat 7s linear forwards;
+    }
+
+    @keyframes sparkleDrift {
+      from { background-position: 0 0, 0 0, 0 0; }
+      to { background-position: 44px 44px, 88px 88px, -132px 132px; }
+    }
+
+    @keyframes dreamGlow {
+      from { opacity: 0.58; filter: blur(0); }
+      to { opacity: 0.92; filter: blur(0.4px); }
+    }
+
+    @keyframes dreamyBreath {
+      from { filter: saturate(1) brightness(1); }
+      to { filter: saturate(1.08) brightness(1.03); }
+    }
+
+    @keyframes panelDream {
+      from { transform: translate3d(0, 0, 0) rotate(0deg); }
+      to { transform: translate3d(80px, 80px, 0) rotate(12deg); }
+    }
+
+    @keyframes pulseHint {
+      0%, 100% { transform: translateY(0); opacity: 0.78; }
+      50% { transform: translateY(-5px); opacity: 1; }
+    }
+
+    @keyframes photoCashIn {
+      0% {
+        opacity: 0;
+        transform: translate(-50%, -50%) scale(0.05) rotate(-12deg);
+      }
+      55% {
+        opacity: 1;
+        transform: translate(-50%, -50%) scale(1.18) rotate(4deg);
+      }
+      72% {
+        transform: translate(-50%, -50%) scale(0.95) rotate(-2deg);
+      }
+      100% {
+        opacity: 1;
+        transform: translate(-50%, -50%) scale(1) rotate(0deg);
+      }
+    }
+
+    @keyframes coinPop {
+      0% {
+        opacity: 0;
+        transform: translate(0, 0) scale(0.1) rotate(0deg);
+      }
+      22% {
+        opacity: 1;
+      }
+      100% {
+        opacity: 0;
+        transform: translate(var(--x), var(--y)) scale(1.05) rotate(var(--r));
+      }
+    }
+
+    @keyframes floatCat {
+      0% {
+        transform: translateY(0) translateX(0) rotate(-8deg) scale(0.82);
+        opacity: 0;
+      }
+      10% {
+        opacity: 1;
+      }
+      48% {
+        transform: translateY(-48vh) translateX(var(--wiggle, 36px)) rotate(12deg) scale(1.08);
+      }
+      100% {
+        transform: translateY(-116vh) translateX(calc(var(--wiggle, 36px) * -1)) rotate(28deg) scale(0.92);
+        opacity: 0;
+      }
+    }
+
+    @keyframes catBoop {
+      from { filter: drop-shadow(0 0 0 rgba(255,255,255,0)); }
+      to { filter: drop-shadow(0 0 18px rgba(255,255,255,0.9)); }
+    }
+
+    @keyframes heartFloat {
+      from {
+        opacity: 0;
+        transform: translateY(0) scale(0.7) rotate(0deg);
+      }
+      12% {
+        opacity: 1;
+      }
+      to {
+        opacity: 0;
+        transform: translateY(-92vh) scale(1.4) rotate(24deg);
+      }
+    }
+
+    @media (max-width: 640px) {
+      .app,
+      .screen {
+        padding: 16px;
+      }
+
+      .panel {
+        border-radius: 26px;
+      }
+
+      .button-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .symptom-btn {
+        min-height: 58px;
+        border-radius: 19px;
+      }
+
+      .screen.opened .capsule-left {
+        transform: translateX(-48px) translateY(-28px) rotate(-33deg);
+      }
+
+      .screen.opened .capsule-right {
+        transform: translateX(48px) translateY(28px) rotate(33deg);
+      }
+
+      .dialogue {
+        padding: 16px;
+        border-radius: 22px;
+      }
+
+      .cat {
+        width: 104px;
+        height: 104px;
+        border-radius: 19px;
+      }
+
+      .dialogue-actions {
+        justify-content: stretch;
+      }
+
+      .hate-btn {
+        width: 100%;
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *,
+      *::before,
+      *::after {
+        animation-duration: 1ms !important;
+        animation-iteration-count: 1 !important;
+        scroll-behavior: auto !important;
+        transition-duration: 1ms !important;
+      }
+    }
+  </style>
+</head>
+<body>
+  <main class="app" aria-live="polite">
+    <section class="screen active" id="introScreen">
+      <div class="panel">
+        <div class="badge">Emergency cute department open hai</div>
+        <h1>Oh no... Tabiyat kharab hai kya? 🤒</h1>
+        <p class="subtitle">Kya ho raha hai batao jaldi!</p>
+        <div class="button-grid" aria-label="Select symptom">
+          <button class="symptom-btn" type="button">Sarr dard 😵‍💫</button>
+          <button class="symptom-btn" type="button">Fever high hai 🔥</button>
+          <button class="symptom-btn" type="button">Bas aalas aa raha hai 🫠</button>
+          <button class="symptom-btn" type="button">Sab dukh raha hai 😭</button>
+        </div>
+      </div>
+    </section>
+
+    <section class="screen" id="medicineScreen">
+      <div class="panel medicine-stage">
+        <div>
+          <div class="badge">Doctor ne bola: drama zaroori hai</div>
+          <h2>Ye lo! Click karke jaldi se davai lelo 💊</h2>
+          <p class="subtitle">Side effects: hasi, blush aur thoda sa "arey yeh kya tha?"</p>
+        </div>
+
+        <button class="capsule-button" id="capsuleButton" type="button" aria-label="Open medicine capsule">
+          <span class="capsule-half capsule-left"></span>
+          <span class="capsule-half capsule-right"></span>
+          <span class="capsule-seam"></span>
+          <span class="capsule-shine"></span>
+        </button>
+        <p class="tap-hint">Tap tap. Davai shy ho rahi hai.</p>
+
+        <img class="reveal-photo" id="revealPhoto" src="1.png" alt="Surprise medicine reveal">
+      </div>
+    </section>
+  </main>
+
+  <div class="chaos-layer" id="chaosLayer" aria-hidden="true"></div>
+  <div class="mini-toast" id="toast">ALERT: Fever ko emotional damage ho gaya.</div>
+
+  <div class="dialogue" id="voiceCard">
+    <p>Tabiyat kitni bhi kharab ho ya haalat kitne bhi kharab ho... meri aawaz se kharab nahi ho sakte! Yakin nahi aata? Khud sunlo 👇</p>
+    <!-- Replace my-song-recording.mp3 with your voice recording. -->
+    <audio id="voiceNoteAudio" controls preload="metadata" src="my-song-recording.mp3"></audio>
+    <div class="dialogue-actions">
+      <button class="hate-btn" id="hateButton" type="button">Hate button 😤</button>
+    </div>
+  </div>
+
+  <!-- Local MP3 copies avoid browser hotlink/CORS issues on GitHub Pages. -->
+  <audio id="buttonClickSound" preload="auto" src="faaa-click.mp3"></audio>
+  <audio id="revealSound" preload="auto" src="get-out-tuco.mp3"></audio>
+  <audio id="dialogueBgSound" preload="auto" loop src="indian-bg.mp3"></audio>
+  <audio id="hateSound" preload="auto" src="gulp-hate.mp3"></audio>
+
+  <script>
+    const introScreen = document.getElementById("introScreen");
+    const medicineScreen = document.getElementById("medicineScreen");
+    const capsuleButton = document.getElementById("capsuleButton");
+    const revealPhoto = document.getElementById("revealPhoto");
+    const chaosLayer = document.getElementById("chaosLayer");
+    const buttonClickSound = document.getElementById("buttonClickSound");
+    const revealSound = document.getElementById("revealSound");
+    const dialogueBgSound = document.getElementById("dialogueBgSound");
+    const hateSound = document.getElementById("hateSound");
+    const voiceCard = document.getElementById("voiceCard");
+    const voiceNoteAudio = document.getElementById("voiceNoteAudio");
+    const hateButton = document.getElementById("hateButton");
+    const toast = document.getElementById("toast");
+    const symptomButtons = document.querySelectorAll(".symptom-btn");
+
+    const catEmbeds = [
+      "https://tenor.com/embed/5602905734228390953",
+      "https://tenor.com/embed/16448885156657771260",
+      "https://tenor.com/embed/5671822644946302447",
+      "https://tenor.com/embed/13709608668271799281",
+      "https://tenor.com/embed/15997130965381315116",
+      "https://tenor.com/embed/7644247749847386692",
+      "https://tenor.com/embed/3265305156321567025"
+    ];
+
+    const roastLines = [
+      "Diagnosis: cuteness deficiency detected.",
+      "Nurse report: patient ko attention chahiye, urgent.",
+      "Prescription: 2 laughs before food, 1 smile after food.",
+      "Thermometer ne resign kar diya.",
+      "Pain bola: main chalta hoon, yahan comedy chal rahi hai."
+    ];
+
+    const catVibes = ["dawai?", "meowdicine", "ta-da", "fever bye", "dance", "lol", "suno na"];
+    const delayedSounds = [revealSound, dialogueBgSound];
+    let soundsUnlocked = false;
+
+    function switchToMedicine() {
+      playButtonClick();
+      toast.textContent = roastLines[Math.floor(Math.random() * roastLines.length)];
+      showToast();
+      introScreen.classList.add("exit");
+
+      window.setTimeout(() => {
+        introScreen.classList.remove("active", "exit");
+        medicineScreen.classList.add("active");
+      }, 460);
+    }
+
+    function openCapsule() {
+      if (medicineScreen.classList.contains("opened")) return;
+
+      playButtonClick();
+      medicineScreen.classList.add("opened");
+      toast.textContent = "Capsule ke andar se hero nikla. Science is confused.";
+      showToast();
+      document.body.classList.add("chaos-mode");
+
+      window.setTimeout(() => {
+        revealPhoto.classList.add("show");
+        playSound(revealSound, "Reveal sound blocked hai. Direct MP3 daaloge toh Tuco wali entry full filmy hogi.");
+        createCashBurst();
+        startChaos();
+      }, 360);
+
+      window.setTimeout(() => {
+        voiceCard.classList.add("show");
+        dialogueBgSound.volume = 0.28;
+        playSound(dialogueBgSound, "Indian background sound shy ho gaya. Direct MP3 verified hai, reload karke try karo.");
+      }, 1450);
+    }
+
+    function playSound(audio, blockedMessage) {
+      if (!audio) return;
+      audio.muted = false;
+
+      try {
+        audio.currentTime = 0;
+      } catch (error) {
+        // Some browsers refuse seeking remote audio until metadata arrives.
+      }
+
+      const playAttempt = audio.play();
+
+      if (playAttempt && typeof playAttempt.catch === "function") {
+        playAttempt.catch(() => {
+          toast.textContent = blockedMessage || "Browser ne audio ko side-eye de diya. Direct MP3 URL lagao, phir dhamaka.";
+          showToast();
+        });
+      }
+    }
+
+    function playButtonClick() {
+      buttonClickSound.volume = 0.65;
+      playSound(buttonClickSound, "Button click sound blocked hai. Browser ko ek tap aur chahiye.");
+    }
+
+    function stopDialogueBg() {
+      dialogueBgSound.pause();
+      try {
+        dialogueBgSound.currentTime = 0;
+      } catch (error) {
+        // Metadata may still be loading on slower connections.
+      }
+    }
+
+    function resumeDialogueBg() {
+      if (!voiceCard.classList.contains("show") || !voiceNoteAudio.paused) return;
+      dialogueBgSound.volume = 0.2;
+      playSound(dialogueBgSound, "Indian background sound shy ho gaya. Reload karke try karo.");
+    }
+
+    function unlockSounds() {
+      if (soundsUnlocked) return;
+      soundsUnlocked = true;
+
+      delayedSounds.forEach((audio) => {
+        const previousVolume = audio.volume;
+        audio.volume = 0;
+
+        const unlockAttempt = audio.play();
+
+        if (unlockAttempt && typeof unlockAttempt.then === "function") {
+          unlockAttempt
+            .then(() => {
+              audio.pause();
+              try {
+                audio.currentTime = 0;
+              } catch (error) {
+                // Harmless: metadata may not be ready yet.
+              }
+              audio.volume = previousVolume;
+            })
+            .catch(() => {
+              audio.volume = previousVolume;
+            });
+        } else {
+          audio.pause();
+          audio.volume = previousVolume;
+        }
+      });
+    }
+
+    function showToast() {
+      toast.classList.add("show");
+      window.clearTimeout(showToast.timer);
+      showToast.timer = window.setTimeout(() => {
+        toast.classList.remove("show");
+      }, 2600);
+    }
+
+    function createCashBurst() {
+      const burst = document.createElement("div");
+      burst.className = "cash-burst";
+      document.body.appendChild(burst);
+
+      for (let i = 0; i < 18; i++) {
+        const coin = document.createElement("span");
+        const angle = (Math.PI * 2 * i) / 18;
+        const distance = 90 + Math.random() * 130;
+        coin.className = "coin";
+        coin.textContent = Math.random() > 0.5 ? "₹" : "♡";
+        coin.style.setProperty("--x", `${Math.cos(angle) * distance}px`);
+        coin.style.setProperty("--y", `${Math.sin(angle) * distance}px`);
+        coin.style.setProperty("--r", `${Math.random() * 420 - 210}deg`);
+        coin.style.animationDelay = `${Math.random() * 120}ms`;
+        burst.appendChild(coin);
+      }
+
+      window.setTimeout(() => burst.remove(), 1350);
+    }
+
+    function startChaos() {
+      for (let i = 0; i < 22; i++) {
+        window.setTimeout(spawnCat, i * 160);
+      }
+
+      for (let i = 0; i < 28; i++) {
+        window.setTimeout(spawnHeart, i * 120);
+      }
+
+      const catInterval = window.setInterval(spawnCat, 560);
+      const heartInterval = window.setInterval(spawnHeart, 760);
+
+      window.setTimeout(() => {
+        window.clearInterval(catInterval);
+        window.clearInterval(heartInterval);
+      }, 9200);
+    }
+
+    function spawnCat() {
+      const cat = document.createElement("span");
+      const iframe = document.createElement("iframe");
+      cat.className = "cat";
+      cat.dataset.vibe = catVibes[Math.floor(Math.random() * catVibes.length)];
+      cat.style.left = `${Math.random() * 94}%`;
+      cat.style.setProperty("--duration", `${6 + Math.random() * 4}s`);
+      cat.style.setProperty("--wiggle", `${Math.random() * 110 - 55}px`);
+      cat.style.animationDelay = `${Math.random() * 260}ms`;
+      iframe.src = `${catEmbeds[Math.floor(Math.random() * catEmbeds.length)]}?canonicalurl=https://tenor.com`;
+      iframe.loading = "lazy";
+      iframe.title = "Dancing cat GIF";
+      cat.appendChild(iframe);
+      chaosLayer.appendChild(cat);
+      window.setTimeout(() => cat.remove(), 10500);
+    }
+
+    function spawnHeart() {
+      const heart = document.createElement("span");
+      heart.className = "heart";
+      heart.textContent = Math.random() > 0.5 ? "♡" : "💕";
+      heart.style.left = `${4 + Math.random() * 92}%`;
+      heart.style.bottom = "-24px";
+      heart.style.fontSize = `${0.9 + Math.random() * 1.2}rem`;
+      heart.style.animationDuration = `${4.8 + Math.random() * 3}s`;
+      document.body.appendChild(heart);
+      window.setTimeout(() => heart.remove(), 8200);
+    }
+
+    symptomButtons.forEach((button) => {
+      button.addEventListener("click", switchToMedicine);
+    });
+
+    capsuleButton.addEventListener("click", openCapsule);
+
+    document.addEventListener("pointerdown", unlockSounds, { once: true });
+
+    voiceNoteAudio.addEventListener("play", stopDialogueBg);
+    voiceNoteAudio.addEventListener("ended", resumeDialogueBg);
+    voiceNoteAudio.addEventListener("pause", () => {
+      if (voiceNoteAudio.currentTime > 0 && voiceNoteAudio.currentTime < voiceNoteAudio.duration) {
+        resumeDialogueBg();
+      }
+    });
+
+    hateButton.addEventListener("click", () => {
+      playButtonClick();
+      hateSound.volume = 0.9;
+      playSound(hateSound, "Hate button ka gulp sound direct MP3 maang raha hai.");
+      toast.textContent = "Hate button dabaya? Ab guilt medicine lo: ek smile.";
+      showToast();
+      for (let i = 0; i < 10; i++) {
+        window.setTimeout(spawnCat, i * 90);
+      }
+    });
+  </script>
+</body>
+</html>
