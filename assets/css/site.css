@@ -415,7 +415,14 @@ footer {
    ============================================================ */
 
 /* ---------- page header (non-home hero) ---------- */
-.page-head { padding: 72px 0 8px; }
+.page-head {
+	padding: 72px 0 40px;
+	position: relative;
+	overflow: hidden;
+}
+/* the dot field sits behind the header content on sub-pages,
+   exactly as it does behind the landing banner on the index */
+.page-head > .wrap { position: relative; z-index: 1; }
 .page-head h1 {
 	font-size: clamp(34px, 5.6vw, 52px);
 	letter-spacing: -.035em; line-height: 1.05; margin-bottom: 16px;
@@ -492,7 +499,7 @@ footer {
 
 /* ---------- article ---------- */
 .article { max-width: 70ch; margin: 0 auto; }
-.article-head { margin-bottom: 40px; }
+.article-head { margin-bottom: 0; }
 .article-head h1 {
 	font-size: clamp(30px, 4.6vw, 44px);
 	letter-spacing: -.032em; line-height: 1.12; margin-bottom: 18px;

@@ -113,7 +113,10 @@
 	   stays cheap even with a dense grid.
 	------------------------------------------------------- */
 	var canvas = document.getElementById("field");
-	var hero   = document.getElementById("hero");
+	// The field hosts itself in whichever section contains the canvas: the
+	// landing banner on the index, the page header on about and article pages.
+	// Same code everywhere, no per-page branch.
+	var host   = canvas ? canvas.parentElement : null;
 
 	// Read from live computed styles so the grid re-tints with the theme
 	// instead of hard-coding either palette.
@@ -126,7 +129,7 @@
 	}
 	refreshFieldColour();
 
-	var wantsField = canvas && hero && !reduceMotion && finePointer && window.innerWidth >= 900;
+	var wantsField = canvas && host && !reduceMotion && finePointer && window.innerWidth >= 900;
 
 	if (canvas && !wantsField) canvas.remove();
 
@@ -142,16 +145,16 @@
 		var PUSH     = 26;    // peak displacement away from the cursor
 		var EASE     = 0.12;  // how fast a dot returns to its lattice point
 
-		hero.addEventListener("mousemove", function (e) {
-			var r = hero.getBoundingClientRect();
+		host.addEventListener("mousemove", function (e) {
+			var r = host.getBoundingClientRect();
 			mouse.x = e.clientX - r.left;
 			mouse.y = e.clientY - r.top;
 		}, { passive: true });
-		hero.addEventListener("mouseleave", function () { mouse.x = mouse.y = -9999; });
+		host.addEventListener("mouseleave", function () { mouse.x = mouse.y = -9999; });
 
 		function resize() {
-			W = hero.offsetWidth;
-			H = hero.offsetHeight;
+			W = host.offsetWidth;
+			H = host.offsetHeight;
 			canvas.width  = W * dpr;
 			canvas.height = H * dpr;
 			ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
@@ -222,12 +225,12 @@
 			}, 180);
 		}, { passive: true });
 
-		// Stop burning frames when the hero scrolls away or the tab is hidden.
+		// Stop burning frames when the field scrolls away or the tab is hidden.
 		if ("IntersectionObserver" in window) {
 			new IntersectionObserver(function (entries) {
 				visible = entries[0].isIntersecting;
 				if (visible) start(); else stop();
-			}, { threshold: 0 }).observe(hero);
+			}, { threshold: 0 }).observe(host);
 		}
 		document.addEventListener("visibilitychange", function () {
 			if (document.hidden) stop(); else start();
