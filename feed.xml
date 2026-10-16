@@ -1,29 +1,29 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
 	<channel>
-		<title>Harsh Gaur — Writing</title>
-		<link>https://harshgaur017.github.io/writing/</link>
+		<title>Harsh Gaur — Articles</title>
+		<link>https://harshgaur017.github.io/articles/</link>
 		<description>Notes on retrieval, recommendations and event-driven architecture.</description>
 		<language>en-in</language>
 		<atom:link href="https://harshgaur017.github.io/feed.xml" rel="self" type="application/rss+xml"/>
 		<item>
 			<title>Which number is the price?</title>
-			<link>https://harshgaur017.github.io/writing/which-number-is-the-price.html</link>
-			<guid>https://harshgaur017.github.io/writing/which-number-is-the-price.html</guid>
+			<link>https://harshgaur017.github.io/articles/which-number-is-the-price.html</link>
+			<guid>https://harshgaur017.github.io/articles/which-number-is-the-price.html</guid>
 			<description>Parsing code-mixed Hindi and Hinglish product search: disambiguating price from size, pre-computing numeric bounds, and treating the language model as a compiler rather than a chatbot.</description>
 			<pubDate>Fri, 17 Oct 2026 09:00:00 +0530</pubDate>
 		</item>
 		<item>
 			<title>Four signals, one score</title>
-			<link>https://harshgaur017.github.io/writing/four-signals-one-score.html</link>
-			<guid>https://harshgaur017.github.io/writing/four-signals-one-score.html</guid>
+			<link>https://harshgaur017.github.io/articles/four-signals-one-score.html</link>
+			<guid>https://harshgaur017.github.io/articles/four-signals-one-score.html</guid>
 			<description>Why a pure embedding recommender returns beautiful, useless results, and how blending vector similarity with co-occurrence, category and attribute signals fixes it.</description>
 			<pubDate>Fri, 17 Oct 2026 09:00:00 +0530</pubDate>
 		</item>
 		<item>
 			<title>Who gets told what</title>
-			<link>https://harshgaur017.github.io/writing/who-gets-told-what.html</link>
-			<guid>https://harshgaur017.github.io/writing/who-gets-told-what.html</guid>
+			<link>https://harshgaur017.github.io/articles/who-gets-told-what.html</link>
+			<guid>https://harshgaur017.github.io/articles/who-gets-told-what.html</guid>
 			<description>Replacing hardcoded notification triggers with a rules engine: event registries, the recipient type that resolves to nobody, and a duplicate-message bug caused by one person holding two roles.</description>
 			<pubDate>Fri, 17 Oct 2026 09:00:00 +0530</pubDate>
 		</item>

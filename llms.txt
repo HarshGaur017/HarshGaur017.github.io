@@ -43,5 +43,5 @@ LinkedIn: https://www.linkedin.com/in/harsh-gaur-520a73258
 ## Pages
 
 - [Home](https://harshgaur017.github.io/): Overview, selected work, experience, projects and stack.
-- [RSS feed](https://harshgaur017.github.io/feed.xml): New writing.
+- [RSS feed](https://harshgaur017.github.io/feed.xml): New articles.
 - [GitHub profile](https://github.com/HarshGaur017): Open-source and personal projects.
