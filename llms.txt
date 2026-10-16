@@ -1,0 +1,47 @@
+# Harsh Gaur
+
+> Harsh Gaur is a Full-Stack AI Developer at Mulltiply (B2B commerce for Indian retail), based in Ghaziabad, Uttar Pradesh, India. He designs distributed backend systems — event-driven queues, GraphQL APIs, vector retrieval on PostgreSQL and production LLM pipelines — and the React Native clients that consume them. His work includes an LLM query parser that compiles Hindi/Hinglish search into Meilisearch filters, an OCR pipeline turning photographed invoices into orders, voice ordering, semantic recommendations on pgvector, and ERP synchronisation against Marg, Tally, Busy and Zoho. He has authored 2,483 commits (~170,000 lines) across 11 production repositories and is the second-highest all-time contributor to the company's flagship React Native app.
+
+Canonical site: https://harshgaur017.github.io/
+Contact: harshgaur017@gmail.com
+GitHub: https://github.com/HarshGaur017
+LinkedIn: https://www.linkedin.com/in/harsh-gaur-520a73258
+
+## Quick facts
+
+- Name: Harsh Gaur
+- Role: Full-Stack AI Developer, Mulltiply (February 2025 – present). Joined 23 September 2024 as a React Native intern.
+- Location: Based in Ghaziabad; works in Noida, Uttar Pradesh, India
+- Education: B.Tech in Computer Science & Engineering (IoT), Raj Kumar Goel Institute of Technology, Ghaziabad — August 2020 to June 2024
+- Core stack: Node.js, JavaScript/TypeScript, Python, PostgreSQL, pgvector, Redis, GraphQL (Apollo Server 4), Express, BullMQ, React Native, Expo
+- Domain expertise: multilingual (Hindi/Hinglish) search and intent parsing, OCR and document intelligence, voice-to-order pipelines, vector retrieval and RAG, Indian ERP integration (Marg, Tally, Busy, Zoho), WhatsApp Cloud API, Razorpay, event-driven queue architecture
+- Measured output: 2,483 commits and ~170,000 lines across 11 repositories; at least 299 merged pull requests; 879 commits into a 17,458-commit GraphQL core; 1,023 commits on the flagship React Native app (2nd highest contributor of 14); 16 backend modules created from scratch; 16 mobile screens and 12 reusable components; ~40% faster app cold start
+- Languages: English, Hindi
+
+## Availability
+
+- Open to mid-level backend, platform and AI engineering roles.
+- Interested in: distributed Node.js and TypeScript services, PostgreSQL performance and query planning, vector retrieval, LLM systems in production, event-driven architecture.
+- Locations: remote, or Delhi NCR / Noida / Bengaluru.
+- Contact: harshgaur017@gmail.com
+
+## Selected work
+
+- Hinglish search parser: an LLM query parser converting natural-language Hindi, Hinglish and Devanagari product queries into structured Meilisearch queries plus filter expressions. Transliterates Devanagari to Hinglish, detects colloquial price intent ("500 tak", "1000 ke aaspas", "kitne ka"), resolves approximate prices to concrete ±10% numeric bounds at parse time, and explicitly refuses to treat a bare number as a price without a price cue.
+- ERP integration platform: owns the connector layer syncing the platform with Marg, Tally, Busy and Zoho, plus Shopify. Built Zoho's full OAuth flow, Marg item/pricing/order/ledger/invoice sync with batch-wise processing for oversized payloads, Busy CRUD for items/customers/invoices/stock, and the transform layer reconciling four incompatible ERP schemas into one internal model.
+- Invoice OCR pipeline: multi-file upload and parsing, an LLM pass structuring raw OCR text, a preview step before commit, and an ocrTrainingData module capturing results for model improvement. Python service built on FastAPI with PaddleOCR, RapidOCR, Tesseract, ONNX Runtime and PyMuPDF.
+- Voice ordering: speech to transcript to LLM parser with automatic language detection, wired through to cart — a zero-typing order path.
+- Semantic recommendations: item embeddings in PostgreSQL via pgvector (SKU attributes and AI-generated tags included in the embedding text), a similarity-computation worker and cron-driven embedding jobs.
+- Notification rules engine: replaced hardcoded notification triggers with a configurable rule engine (event keys, recipient types with validation and normalisation, default event registry), removing deploys from routine ops changes.
+
+## Projects
+
+- [MulltiplyR](https://play.google.com/store/apps/details?id=com.mulltiply.mulltiplyr): B2B retail marketplace, live on the Play Store. React Native/Expo, TypeScript, Redux Toolkit, Reanimated. 10,000+ SKUs, real-time stock, GST invoicing, multilingual UI, deep linking, RBAC, OTA updates. 1,023 commits, 16 screens, 12 components, 8-module Mixpanel analytics layer, ~40% faster cold start.
+- AI Business Operations Assistant: multi-tenant RAG platform for querying an organisation's internal documents. TypeScript, Express 5, PostgreSQL with pgvector (1536-dimension embeddings, ivfflat cosine index), org-scoped foreign-key tenant isolation, document versioning, and a hand-rolled Postgres job queue driving the embedding worker.
+- DevFlow: AI engineering workspace that harvests GitHub history (including private organisation repositories) and synthesises a career and impact report. Next.js, Express, Prisma, PostgreSQL, Redis, Turborepo. Walks the GitHub GraphQL API with author-filtered commit pagination, exponential backoff honouring rate-limit hints, and a fixed-size concurrency pool.
+
+## Pages
+
+- [Home](https://harshgaur017.github.io/): Overview, selected work, experience, projects and stack.
+- [RSS feed](https://harshgaur017.github.io/feed.xml): New writing.
+- [GitHub profile](https://github.com/HarshGaur017): Open-source and personal projects.

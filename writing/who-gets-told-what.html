@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>Who gets told what — Harsh Gaur</title>
+	<meta name="description"
+		content="Replacing hardcoded notification triggers with a rules engine: event registries, the recipient type that resolves to nobody, and a duplicate-message bug caused by one person holding two roles.">
+	<meta name="theme-color" content="#17191E">
+	<link rel="canonical" href="https://harshgaur017.github.io/writing/who-gets-told-what.html">
+	<meta property="og:type" content="article">
+	<meta property="og:site_name" content="Harsh Gaur">
+	<meta property="og:title" content="Who gets told what">
+	<meta property="og:description" content="Every notification started as an if statement next to the code that caused it. Replacing that with a rules engine.">
+	<meta property="og:url" content="https://harshgaur017.github.io/writing/who-gets-told-what.html">
+	<meta property="og:image" content="https://harshgaur017.github.io/assets/img/og-banner.png">
+	<meta name="twitter:card" content="summary_large_image">
+	<link rel="icon" type="image/png" href="/assets/img/favicon-192.png">
+	<link rel="manifest" href="/site.webmanifest">
+	<link rel="alternate" type="application/rss+xml" title="Harsh Gaur — Writing" href="/feed.xml">
+	<link rel="stylesheet" href="/assets/css/site.css">
+	<script>
+		(function () {
+			document.documentElement.classList.add("js");
+			try {
+				var saved = localStorage.getItem("theme");
+				if (saved === "light") document.documentElement.setAttribute("data-theme", "light");
+				else if (saved === "dark") document.documentElement.removeAttribute("data-theme");
+			} catch (e) { }
+		})();
+	</script>
+</head>
+
+<body>
+	<a class="skip" href="#main">Skip to content</a>
+	<div class="progress" id="progress" aria-hidden="true"></div>
+	<div class="cursor-glow" id="cursor-glow" aria-hidden="true"></div>
+
+	<nav class="nav" id="nav">
+		<div class="nav-in">
+			<a class="brand" href="/">harsh&#8203;gaur<span style="color:var(--accent)">.</span></a>
+			<div class="nav-links">
+				<a href="/about.html">About</a>
+				<a class="current" href="/writing/">Writing</a>
+				<a href="/#experience">Experience</a>
+				<a href="/#projects">Projects</a>
+				<a href="/#skills">Skills</a>
+				<a class="nav-resume" href="/Harsh_Gaur_SDE_CV.pdf" target="_blank" rel="noopener">Résumé ↗</a>
+			</div>
+		</div>
+	</nav>
+
+	<main id="main">
+		<section style="padding-top:64px">
+			<div class="wrap">
+				<article class="article">
+					<header class="article-head">
+						<div class="post-meta">Architecture · 7 min read</div>
+						<h1>Who gets told what</h1>
+						<p class="standfirst">
+							Every notification in the system started life as an <code>if</code> statement next to
+							the code that caused it. Here is what replacing that with a rules engine actually
+							involved — including a duplicate-message bug that only appeared when one person
+							held two roles at once.
+						</p>
+					</header>
+
+					<div class="article-body">
+						<p>
+							Notifications accumulate. Someone ships order confirmations to buyers. Someone else
+							adds a copy for the sales rep. A customer asks to be told about partial shipments, so
+							that goes in too. None of these decisions are wrong on their own, and the result is
+							still a mess: messaging logic scattered across every module that happens to change
+							state.
+						</p>
+						<p>
+							The symptom that forced the rewrite wasn't technical. Operations wanted to stop
+							sending one particular message to one particular role, and the answer was "that needs
+							a release". A one-line policy change, gated behind a deploy. That's the point at which
+							configuration has leaked into code.
+						</p>
+
+						<h2>Separating the event from the audience</h2>
+						<p>
+							The core move is unglamorous: split <em>something happened</em> from <em>who should
+							hear about it</em>.
+						</p>
+						<p>
+							Business modules stop knowing about recipients entirely. They emit an event — order
+							placed, shipment dispatched, challan generated — with the context needed to describe
+							it. Everything after that is the notification layer's problem.
+						</p>
+						<p>
+							That layer owns an <strong>event registry</strong>: a declaration of every event the
+							system can emit, which module owns it, and which recipient types are enabled for it by
+							default along with the template each receives. The registry is the specification. New
+							events are added there rather than discovered by grepping for send calls.
+						</p>
+						<div class="callout">
+							Defaults in the registry, overrides in the database. The registry says what
+							<em>should</em> happen for a new tenant; stored rules say what a specific tenant has
+							chosen. Shipping a new event means every tenant gets a sensible default immediately,
+							and anyone who has expressed a preference keeps it.
+						</div>
+
+						<h2>Recipient types, and the one that resolves to nobody</h2>
+						<p>
+							A recipient type is not a person. It is a <em>role relative to the event</em> —
+							buyer, seller, employee, field rep, or an explicit custom list. Each type has a
+							resolver that turns the event's context into actual contact details: given this order,
+							find the buyer's number.
+						</p>
+						<p>
+							The interesting case is the one that resolves to nothing at all.
+						</p>
+						<p>
+							Some events already know their audience. A shift reminder is addressed to one specific
+							employee, resolved by the thing that produced it; there is no lookup for the
+							notification layer to perform. Early on I handled these by bypassing the rules engine,
+							which immediately meant two code paths and a category of notification that couldn't be
+							configured like the others.
+						</p>
+						<p>
+							The fix was a recipient type that is deliberately registered with <strong>no
+							resolver</strong>. It means "the person this message is already addressed to". The
+							payload carries its own destination, the resolver returns nothing, and delivery
+							proceeds to whatever the producer embedded. The rule row still exists, so operations
+							can still enable or disable that event per tenant — which was the entire point. One
+							code path, one configuration surface, one less exception to remember.
+						</p>
+						<p>
+							This is the null-object pattern, and it is worth more in an event system than it looks
+							on paper. Every special case you avoid is a branch that cannot drift.
+						</p>
+
+						<h2>The bug: one person, two roles</h2>
+						<p>
+							After the engine went live, a specific complaint arrived: some people were getting the
+							same order notification twice.
+						</p>
+						<p>
+							Not everyone, and not every order. It took a while to see the shape, because the
+							obvious suspects were all innocent — the queue wasn't redelivering, the job wasn't
+							running twice, and the rules table had exactly one row per event per recipient type.
+						</p>
+						<p>
+							The actual cause was in resolution. For certain orders, the context carried both a
+							buyer-side contact and a sales-rep contact. Both recipient types were enabled. Both
+							resolvers ran, as designed. And for some stores the <strong>same human being</strong>
+							occupies both roles — a distributor who is also the rep on their own accounts.
+						</p>
+						<p>
+							Two correct rules, two correct resolvers, one phone number, two messages.
+						</p>
+						<div class="callout">
+							<strong>Recipient types are roles; delivery targets are people.</strong> A fan-out
+							that is correct in role-space can still be wrong in person-space, because the mapping
+							between them is many-to-one. Nothing in the rules model expresses that, so nothing
+							catches it.
+						</div>
+						<p>
+							The immediate fix was to stop attaching the rep's details to events where the buyer
+							was already a recipient — narrow, targeted, shipped quickly. The right fix, and the
+							one I'd start with now, is a <strong>deduplication step between resolution and
+							dispatch</strong>: resolve every recipient type, collapse the result set by
+							destination, and send once per unique destination with the highest-priority template
+							that applied.
+						</p>
+						<p>
+							That generalises. It fixes the two-role case, and it fixes every future case where
+							two rules happen to land on the same person — without anyone having to anticipate
+							which pairs those are.
+						</p>
+
+						<h2>Validate rules on write, not on send</h2>
+						<p>
+							One more thing worth doing early. When rules are user-editable, they will eventually
+							contain nonsense — a recipient type that doesn't exist, an event key with a typo, a
+							custom recipient list with no contacts in it.
+						</p>
+						<p>
+							Validating at send time is too late. The event has already happened, you're inside a
+							worker, and your options are to drop the notification or crash the job. Both are bad
+							and neither is visible to the person who made the mistake.
+						</p>
+						<p>
+							Validating at write time means the API rejects the bad rule immediately, with a
+							message pointing at the field. The person who caused the problem is still looking at
+							the screen. Same check, radically different cost.
+						</p>
+
+						<h2>Was it worth it</h2>
+						<p>
+							The engine is more code than the <code>if</code> statements it replaced, and for a
+							smaller system it would be over-engineering. The thing that justified it was tenancy:
+							once different stores legitimately want different notification behaviour, encoding
+							that in branches means the branches multiply with the tenants.
+						</p>
+						<p>
+							The measurable outcome is that routine changes stopped being deploys. Enabling an
+							event for a role, changing a template, silencing a message for one store — all of it
+							moved from engineering to operations, which is where it belonged.
+						</p>
+						<p>
+							The lesson I took is more general than notifications. When you find yourself shipping
+							code to change a policy, the policy wants to be data. The hard part is never the rules
+							table. It's being honest about the fact that your domain model — roles, in this case —
+							is a simplification, and that reality will eventually put two of them on the same
+							phone number.
+						</p>
+					</div>
+
+					<footer class="article-foot">
+						<p>Written by Harsh Gaur — <a href="/about.html">about me</a></p>
+						<a class="btn" href="/writing/">← All writing</a>
+					</footer>
+				</article>
+			</div>
+		</section>
+	</main>
+
+	<footer>
+		<div class="wrap">
+			<div class="foot-in">
+				<span>© <span id="year">2026</span> Harsh Gaur</span>
+				<span>
+					<a href="/">Home</a> ·
+					<a href="/about.html">About</a> ·
+					<a href="/feed.xml">RSS</a> ·
+					<a href="mailto:harshgaur017@gmail.com">Email</a>
+				</span>
+			</div>
+			<p class="foot-note">
+				Designed and built from scratch <span aria-hidden="true">💻 ☕</span>
+			</p>
+		</div>
+	</footer>
+
+	<script src="/assets/js/site.js" defer></script>
+</body>
+
+</html>

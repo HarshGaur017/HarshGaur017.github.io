@@ -1,766 +1,571 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-theme="dark">
 
 <head>
- 
-  <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
-  new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
-  j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
-  'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
-  })(window,document,'script','dataLayer','GTM-5BB8W2X');</script>
- 
-  <link rel="icon" type="image/png" href="/new.png"/>
-  <meta charset="utf-8">
-  <meta content="width=device-width, initial-scale=1.0" name="viewport">
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
 
-  <title>HarshGaur Portfolio</title>
-  <meta content="" name="descriptison">
-  <meta content="" name="keywords">
+	<title>Harsh Gaur — Full-Stack AI Developer · Node.js, React Native, LLM Systems</title>
+	<meta name="description"
+		content="Full-Stack AI Developer. I design distributed backend systems — event-driven queues, GraphQL APIs, vector retrieval and production LLM pipelines — and the React Native clients that consume them. 2,483 commits across 11 production repositories.">
+	<meta name="keywords"
+		content="Harsh Gaur, Full Stack Engineer, AI Engineer, React Native, Node.js, PostgreSQL, pgvector, LLM, RAG, Meilisearch, OCR, ERP Integration, Tally, Marg, India">
+	<meta name="author" content="Harsh Gaur">
+	<meta name="theme-color" content="#0A0E14">
+	<link rel="canonical" href="https://harshgaur017.github.io/">
 
-  <!-- Google Fonts -->
-  <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Raleway:300,300i,400,400i,500,500i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i" rel="stylesheet">
+	<!-- Open Graph -->
+	<meta property="og:type" content="website">
+	<meta property="og:site_name" content="Harsh Gaur">
+	<meta property="og:title" content="Harsh Gaur — Full-Stack AI Developer">
+	<meta property="og:description"
+		content="I design distributed backend systems — event-driven queues, GraphQL APIs, vector retrieval and production LLM pipelines — and the React Native clients that consume them.">
+	<meta property="og:url" content="https://harshgaur017.github.io/">
+	<meta property="og:image" content="https://harshgaur017.github.io/assets/img/og-banner.png">
+	<meta property="og:image:width" content="1200">
+	<meta property="og:image:height" content="630">
+	<meta property="og:image:alt" content="Harsh Gaur — Full-Stack AI Developer">
+	<meta property="og:locale" content="en_IN">
 
- 
-  <link href="assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
-  <link href="assets/vendor/icofont/icofont.min.css" rel="stylesheet">
-  <link href="assets/vendor/remixicon/remixicon.css" rel="stylesheet">
-  <link href="assets/vendor/owl.carousel/assets/owl.carousel.min.css" rel="stylesheet">
-  <link href="assets/vendor/boxicons/css/boxicons.min.css" rel="stylesheet">
-  <link href="assets/vendor/venobox/venobox.css" rel="stylesheet">
+	<!-- Twitter -->
+	<meta name="twitter:card" content="summary_large_image">
+	<meta name="twitter:title" content="Harsh Gaur — Full-Stack AI Developer">
+	<meta name="twitter:description"
+		content="Distributed backend systems, event-driven queues, vector retrieval and LLM pipelines — with the React Native clients that consume them.">
+	<meta name="twitter:image" content="https://harshgaur017.github.io/assets/img/og-banner.png">
 
- 
-  <link href="assets/css/style.css" rel="stylesheet">
+	<link rel="icon" type="image/png" href="/assets/img/favicon-192.png">
+	<link rel="apple-touch-icon" href="/assets/img/favicon-192.png">
+	<link rel="manifest" href="/site.webmanifest">
+	<link rel="alternate" type="application/rss+xml" title="Harsh Gaur — Writing" href="/feed.xml">
+	<link rel="stylesheet" href="assets/css/site.css">
 
+	<script type="application/ld+json">
+	{
+		"@context": "https://schema.org",
+		"@type": "Person",
+		"name": "Harsh Gaur",
+		"jobTitle": "Full-Stack AI Developer",
+		"url": "https://harshgaur017.github.io/",
+		"email": "mailto:harshgaur017@gmail.com",
+		"image": "https://harshgaur017.github.io/assets/img/profile.jpeg",
+		"worksFor": { "@type": "Organization", "name": "Mulltiply" },
+		"alumniOf": { "@type": "CollegeOrUniversity", "name": "Raj Kumar Goel Institute of Technology" },
+		"address": { "@type": "PostalAddress", "addressLocality": "Ghaziabad", "addressRegion": "Uttar Pradesh", "addressCountry": "IN" },
+		"sameAs": [
+			"https://github.com/HarshGaur017",
+			"https://www.linkedin.com/in/harsh-gaur-520a73258"
+		],
+		"knowsAbout": [
+			"React Native", "Node.js", "TypeScript", "PostgreSQL", "pgvector",
+			"Large Language Models", "Retrieval-Augmented Generation", "Meilisearch",
+			"OCR", "ERP Integration", "BullMQ", "Redis"
+		]
+	}
+	</script>
 
- 
-  <script async src="https://www.googletagmanager.com/gtag/js?id=UA-169007209-3"></script>
-  <script>
-    window.dataLayer = window.dataLayer || [];
-    function gtag(){dataLayer.push(arguments);}
-    gtag('js', new Date());
-
-    gtag('config', 'UA-169007209-3');
-  </script>
-
-
+	<script>
+		// Applied before first paint so the correct theme is never seen to change.
+		(function () {
+			document.documentElement.classList.add("js");
+			try {
+				var saved = localStorage.getItem("theme");
+				if (saved === "light") document.documentElement.setAttribute("data-theme", "light");
+				else if (saved === "dark") document.documentElement.removeAttribute("data-theme");
+			} catch (e) { /* private mode: keep the dark default */ }
+		})();
+	</script>
 </head>
 
-<!-- <body background ="/assets/img/background/bg2.jpg" style="background-position: center top;"> -->
-  <body>
-  
- 
-  <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-5BB8W2X"
-  height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
-  
-  <header id="header" class="header-tops">
-
-    <div class="container">
-      <p class="intro-line">Hi <span class="wave">👋</span> I’m</p>
-      <h1><a href="index.html">Harsh Gaur</a></h1>
-      <h2 style="color:#fff">Focused on <span class="typing" style="color:#4DA3FF"></span></h2>
-      <nav class="nav-menu d-none d-lg-block">
-        <ul>
-          <li class="active"><a href="#header"> <span>Home</span></a></li>
-          <li><a href="#about"><span>About</span></a></li>
-          <li><a href="#education"> <span>Education</span></a></li>
-          <li><a href="#experience"> <span>Experience</span></a></li>
-<!--          <li><a href="#projects"> <span>Projects</span></a></li>-->
-          <li><a href="#portfolio"> <span>Projects</span></a></li>
-          <li><a href="#skills"> <span>Skills</span></a></li>
-          <li>
-            <a href="#resume"><span>Resume</span></a>
-          </li>
-
-          <!-- <li><a href="#links"> <span>Resume & Links</span></a></li> -->
-          <li><a href="#contacts"> <span>Contact</span></a></li>
-
-        </ul>
-      </nav><!-- .nav-menu -->
-
-      <div class="social-links">
-          <a href="https://www.linkedin.com/in/harsh-gaur-520a73258" target="_blank" class="linkedin"><i class="bx bxl-linkedin"></i></a>
-          <a href="https://github.com/HarshGaur017" target="_blank" class="github"><i class="bx bxl-github"></i></a>
-          <a href="mailto:harshgaur017@gmail.com" target="_blank" class="google"><i class="bx bxl-google"></i></a>
-
-      </div>
-
-    </div>
-  </header><!-- End Header -->
-
-  <!-- ======= About Section ======= -->
-  <section id="about" class="about">
-
-    <!-- ======= About Me ======= -->
-    <div class="about-me container">
-
-      <div class="section-title">
-        <h2>About</h2>
-      </div>
-
-      <div class="row">
-        <div class="col-lg-4" data-aos="fade-right">
-          <img src="assets/img/profile3.jpeg" class="img-fluid" alt="">
-        </div>
-        <div class="col-lg-7 pt-3 pt-lg-0 content about-text" data-aos="fade-left">
-          <div class="about-description">
-  <p>
-    I am a Full-Stack Software Engineer with hands-on experience building production-grade
-    mobile applications, scalable backend systems, and AI-powered features.
-  </p>
-
-  <p>
-    Currently working as a Software Engineer, I build high-performance React Native applications,
-    design secure and scalable backend APIs, and integrate AI systems using LLM-based workflows.
-  </p>
-
-  <p>
-    I enjoy owning features end to end — from mobile UI and system architecture
-    to backend logic and intelligent AI pipelines — with a strong focus on performance,
-    maintainability, and real-world impact.
-  </p>
-</div>
-
-          <div class="row  about-contact">
-            <div class="col-lg-6">
-              <ul>
-                <li><i class="icofont-rounded-right"></i> <strong>Phone:</strong> +91 7017986885</li>
-              </ul>
-            </div>
-            <div class="col-lg-6">
-              <ul>
-                <li><i class="icofont-rounded-right"></i> <strong>Email:</strong> harshgaur017@gmail.com</li>
-              </ul>
-            </div>
-          </div>
-        </div>
-      </div>
-
-    </div><!-- End About Me -->
-
-    <!-- ======= Interests ======= -->
-    <div class="interests container">
-
-      <div class="section-title">
-        <h2>Interests</h2>
-      </div>
-
-      <div class="row">
-        <div class="col-lg-3 col-md-4">
-          <div class="icon-box">
-            <i class="ri-global-line" style="color: #ffbb2c;"></i>
-            <h3>Mobile Application Engineering</h3>
-          </div>
-        </div>
-        <div class="col-lg-3 col-md-4 mt-4 mt-md-0">
-          <div class="icon-box">
-            <i class="ri-android-line" style="color: #5578ff;"></i>
-            <h3>Scalable Backend Systems</h3>
-          </div>
-        </div>
-        <div class="col-lg-3 col-md-4 mt-4 mt-md-0">
-          <div class="icon-box">
-            <i class="ri-earth-line" style="color: #e80368;"></i>
-            <h3>AI & LLM-Based Systems</h3>
-          </div>
-        </div>
-        <!-- <div class="col-lg-3 col-md-4 mt-4 mt-lg-0">
-          <div class="icon-box">
-            <i class="ri-gamepad-line" style="color: #9215cd;"></i>
-            <h3>Game Development</h3>
-          </div>
-        </div>
-        <div class="col-lg-3 col-md-4 mt-4">
-          <div class="icon-box">
-            <i class="ri-code-s-slash-fill" style="color: #28a745;"></i>
-            <h3>Software Engineering</h3>
-          </div>
-        </div>
-        <div class="col-lg-3 col-md-4 mt-4">
-          <div class="icon-box">
-            <i class="ri-bar-chart-box-line" style="color: #f1081f;"></i>
-            <h3>Visualization</h3>
-          </div>
-        </div>
-        <div class="col-lg-3 col-md-4 mt-4">
-          <div class="icon-box">
-            <i class="ri-file-list-3-line" style="color: #47aeff;"></i>
-            <h3>Algorithms</h3>
-          </div>
-        </div>
-        <div class="col-lg-3 col-md-4 mt-4">
-          <div class="icon-box">
-            <i class="ri-image-line" style="color: #ffc107;"></i>
-            <h3>UI/UX</h3>
-          </div>
-        </div> -->
-      </div>
-
-    </div><!-- End Interests -->
-  </section><!-- End About Section -->
-
-
-
-  <!-- ======= Education Section ======= -->
-<section id="education" class="services">
-  <div class="container">
-    <div class="section-title">
-      <h2>Education</h2>
-    </div>
-
-    <div class="row" data-aos="fade-up">
-      <div class="col-lg-12">
-
-        <div class="education-row">
-          
-          <!-- Left: Logo -->
-          <div class="education-logo">
-            <img src="assets/img/education/2.png" alt="RKGIT Logo">
-          </div>
-
-          <!-- Right: Content -->
-          <div class="education-content">
-            <h4>
-              <a href="https://rkgit.edu.in/" target="_blank">
-                Raj Kumar Goel Institute Of Technology
-              </a>
-            </h4>
-
-            <p class="education-degree">
-              B.Tech in Computer Science & Engineering (IoT)
-            </p>
-
-            <p class="education-duration">
-              August 2020 – June 2024
-            </p>
-
-            <div class="education-coursework">
-              <span>Relevant Coursework:</span>
-              <ul>
-                <li>Cloud Computing</li>
-                <li>Distributed & IoT System Architecture</li>
-                <li>Sensor Networks & Network Planning</li>
-              </ul>
-            </div>
-          </div>
-
-        </div>
-
-      </div>
-    </div>
-  </div>
-</section>
-
-
-
-    <!-- <div class="portfolio">
-    <div class="container">
-      <div class="section-title">
-        <h2>Online Certification</h2>
-      </div>
-
-      <div class="row portfolio-container" style="position: relative; height: 437.75px;">
-
-         <div class="col-lg-4 col-md-6 portfolio-item filter-app" style="position: absolute; left: 0px; top: 0px;">
-          <div class="portfolio-wrap">
-            <img src="assets/img/certification/meta.png" class="img-fluid" alt="">
-            <div class="portfolio-info">
-              <h4>Python Programming</h4>
-              <div class="portfolio-links">
-                <a href="https://www.coursera.org/account/accomplishments/verify/ARNBBD7CFJAY" target="_blank" title="Certificate"><i class="bx bx-link"></i></a>
-              </div>
-            </div>
-           </div>
-          </div>
-
-        <div class="col-lg-4 col-md-6 portfolio-item filter-app" style="position: absolute; left: 370px; top: 0px;">
-          <div class="portfolio-wrap">
-            <img src="assets/img/certification/john.png" class="img-fluid" alt="">
-            <div class="portfolio-info">
-              <h4>HTML,CSS&Javascript For Web Developers</h4>
-              <div class="portfolio-links">
-                <a href="https://www.coursera.org/account/accomplishments/certificate/A9PBSMMBWTFY?utm_source=android&utm_medium=certificate&utm_content=cert_image&utm_campaign=sharing_cta&utm_product=course" target="_blank" title="Certificate"><i class="bx bx-link"></i></a>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <div class="col-lg-4 col-md-6 portfolio-item filter-app" style="position: absolute; left: 740px; top: 0px;">
-          <div class="portfolio-wrap">
-            <img src="assets/img/certification/Juniper.jpg" class="img-fluid" alt="">
-            <div class="portfolio-info">
-              <h4>JUNIPER NETWORKING CLOUD VIRTUAL INTERNSHIP</h4>
-              <div class="portfolio-links">
-                <a href="https://aictecert.eduskillsfoundation.org/pages/home/verify.php?cert=f345555f9587662a63507dcd5847b30b" target="_blank" title="Certificate"><i class="bx bx-link"></i></a>
-              </div>
-            </div>
-          </div>
-        </div>
-      
-        <div class="col-lg-4 col-md-6 portfolio-item filter-app" style="position: absolute; left: 740px; top: 0px;">
-          <div class="portfolio-wrap">
-            <img src="assets/img/certification/ybipython.png" class="img-fluid" alt="" >
-            <div class="portfolio-info">
-              <h4>Python Programming with Data Structures & Algorithms</h4>
-              <div class="portfolio-links">
-                <a href="https://drive.google.com/file/d/1yj3BLli0lxm7dkLPzyZZxQJWToxLUeWR/view?usp=sharing" target="_blank" title="Certificate"><i class="bx bx-link"></i></a>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <div class="col-lg-4 col-md-6 portfolio-item filter-app" style="position: absolute; left: 740px; top: 0px;">
-          <div class="portfolio-wrap">
-            <img src="assets/img/certification/linkedinlearning-1.jpg" class="img-fluid" alt="" >
-            <div class="portfolio-info">
-              <h4>Career Essentials in Generative AI by Microsoft and LinkedIn</h4>
-              <div class="portfolio-links">
-                <a href="https://www.linkedin.com/learning/certificates/580da54431be3dd894e75d9fba4b50f071544547a3e11e061868baf620cfff77" target="_blank" title="Certificate"><i class="bx bx-link"></i></a>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <div class="col-lg-4 col-md-6 portfolio-item filter-app" style="position: absolute; left: 740px; top: 0px;">
-          <div class="portfolio-wrap">
-            <img src="assets/img/certification/unstop.png" class="img-fluid" alt="" >
-            <div class="portfolio-info">
-              <h4>The ReneVerse Borderless Gaming Hackathon</h4>
-              <div class="portfolio-links">
-                <a href="https://unstop.com/certificate-preview/49dccb9b-2857-4ef5-bfcf-16b20157661d" target="_blank" title="Certificate"><i class="bx bx-link"></i></a>
-              </div>
-            </div>
-          </div>
-        </div>
-
-      </div>
-    </div>
-    </div> -->
-
-  </section>
-  <!-- End Education Section -->
-
-
-
- <!-- Start Experience Section -->
-
-<section id="experience" class="services">
-  <div class="container">
-    <div class="section-title">
-      <h2>Experience</h2>
-    </div>
-    <div class="row">
-      <div class="col-lg-12" data-aos="fade-up">
-
-        <!-- Full-Time Role -->
-        <div class="col-md-12 mt-4 mt-md-0 icon-box" data-aos="fade-up" data-aos-delay="100">
-
-          <h4 style="text-align:left; font-weight:700; color:#38BDF8;">
-            Software Engineer — Full-Stack & AI
-          </h4>
-
-          <h5 style="text-align:left; color:#E5E7EB;">
-            Mulltiply · September 2024 – Present
-          </h5>
-
-          <ul style="text-align:left;">
-            <li>
-              Built and scaled production-grade B2B mobile applications using React Native,
-              serving real users with performance-focused UI and optimized state management.
-            </li>
-            <li>
-              Improved app startup time and rendering performance by ~40% through profiling,
-              rendering optimizations, and memory tuning.
-            </li>
-            <li>
-              Designed and implemented scalable backend APIs handling user preferences,
-              real-time interactions, and business workflows.
-            </li>
-            <li>
-              Integrated AI-powered features including semantic search and intelligent
-              recommendations using vector embeddings and LLM-based workflows.
-            </li>
-            <li>
-              Delivered features end to end across mobile, backend, and AI layers with
-              a strong focus on maintainability, performance, and production reliability.
-            </li>
-          </ul>
-
-        </div>
-
-        <!-- Intern Role -->
-        <div class="col-md-12 mt-4 mt-md-0 icon-box" data-aos="fade-up" data-aos-delay="150">
-
-          <h4 style="text-align:left; font-weight:700; color:#38BDF8;">
-            Software Engineer Intern — React Native
-          </h4>
-
-          <h5 style="text-align:left; color:#E5E7EB;">
-            Mulltiply · June 2024 – August 2024
-          </h5>
-
-          <ul style="text-align:left;">
-            <li>
-              Contributed to the development of React Native mobile applications with
-              a focus on UI implementation, navigation flows, and reusable components.
-            </li>
-            <li>
-              Worked within clean and modular architecture patterns to ship features
-              aligned with production standards.
-            </li>
-            <li>
-              Improved UI performance and user experience through optimized rendering
-              strategies and state management.
-            </li>
-            <li>
-              Gained hands-on experience with production debugging, API integration,
-              and real-world mobile development workflows.
-            </li>
-          </ul>
-
-        </div>
-
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- End Experience Section -->
-
-
-
-
-
-  <!-- Start Project Section -->
- <section id="portfolio" class="portfolio">
-  <div class="container">
-
-    <div class="section-title">
-      <h2>Projects</h2>
-    </div>
-
-    <div class="row">
-
-      <!-- 1️⃣ AI Business Assistant -->
-      <div class="col-lg-6 col-md-12">
-        <div class="project-card">
-          <h3>AI-Powered Business Assistant (Multi-Tenant RAG Platform)</h3>
-
-          <p class="project-desc">
-            Designed and built a multi-tenant AI SaaS platform that allows organizations to
-            securely upload internal documents and query them using Retrieval-Augmented
-            Generation (RAG). Focused on reducing hallucinations while delivering
-            accurate, context-aware responses at scale.
-          </p>
-
-          <p class="project-desc">
-            Implemented intelligent document chunking, vector embeddings, semantic retrieval,
-            strict prompt constraints, and organization-level data isolation with role-based
-            access control.
-          </p>
-
-          <p class="project-tech">
-            <strong>Tech:</strong> Node.js, PostgreSQL, pgvector, React Native, LLMs, RAG 
-          </p>
-
-          <div class="project-links">
-            <a href="#" target="_blank">Project Overview</a>
-          </div>
-        </div>
-      </div>
-
-      <!-- 2️⃣ MulltiplyR -->
-      <div class="col-lg-6 col-md-12">
-        <div class="project-card">
-          <h3>MulltiplyR — B2B Retail Marketplace App</h3>
-
-          <p class="project-desc">
-            Retailer-side B2B marketplace application connecting retailers with distributors.
-            Supports 10,000+ SKUs with real-time stock updates, GST invoicing, and
-            AI-powered reorder predictions.
-          </p>
-
-          <p class="project-desc">
-            Optimized startup time and rendering performance by ~40% using Hermes,
-            JSI-based optimizations, bundle splitting, and efficient state management.
-            Implemented deep linking, multilingual support, RBAC, and OTA updates.
-          </p>
-
-          <p class="project-tech">
-            <strong>Tech:</strong> React Native, Node.js, PostgreSQL, Redux, LLMs
-          </p>
-
-          <div class="project-links">
-            <a href="https://play.google.com/store/apps/details?id=com.mulltiply.mulltiplyr" target="_blank">Play Store – MulltiplyR</a>
-          </div>
-        </div>
-      </div>
-
-      <!-- 3️⃣ MulltiplyD -->
-      <div class="col-lg-6 col-md-12">
-        <div class="project-card">
-          <h3>MulltiplyD — Distributor Management App</h3>
-
-          <p class="project-desc">
-            Distributor-side mobile application for managing orders, inventory, and delivery
-            assignments. Seamlessly integrated with the Mulltiply retailer ecosystem
-            to enable real-time data synchronization.
-          </p>
-
-          <p class="project-desc">
-            Improved operational efficiency by supporting multi-user roles,
-            secure communication flows, real-time updates, and performance-optimized
-            UI rendering for daily operational use.
-          </p>
-
-          <p class="project-tech">
-            <strong>Tech:</strong> React Native
-          </p>
-
-          <div class="project-links">
-            <a href="https://play.google.com/store/apps/details?id=com.mulltiply.mulltiplyD" target="_blank">Play Store – MulltiplyD</a>
-          </div>
-        </div>
-      </div>
-
-    </div>
-  </div>
-</section>
-
-
-
-  <!-- End Project Section -->
-
-
-
-  <!-- Start Skills Section -->
-
- <section id="skills" class="services">
-  <div class="container">
-
-    <div class="section-title">
-      <h2>Skills</h2>
-    </div>
-
-    <!-- Languages -->
-    <div class="skills-group">
-      <h4 class="skills-heading">Languages</h4>
-      <div class="skills-chip-container">
-        <div class="skill-chip"><i class="bx bxl-html5"></i><span>HTML5</span></div>
-        <div class="skill-chip"><i class="bx bxl-css3"></i><span>CSS3</span></div>
-        <div class="skill-chip"><i class="bx bxl-javascript"></i><span>JavaScript</span></div>
-        <div class="skill-chip"><i class='bxl  bx-code-alt'></i> <span>TypeScript</span></div>
-        <div class="skill-chip"><i class="bx bxl-python"></i><span>Python</span></div>
-        <div class="skill-chip"><i class='bx bxl-java'></i><span>Java</span></div>
-        <div class="skill-chip"><i class="bx bx-data"></i><span>SQL</span></div>
-        <div class="skill-chip"><i class="bx bxl-dart"></i><span>Dart</span></div>
-      </div>
-    </div>
-
-    <!-- Frameworks -->
-    <div class="skills-group">
-      <h4 class="skills-heading">Frameworks</h4>
-      <div class="skills-chip-container">
-        <div class="skill-chip"><i class="bx bxl-react"></i><span>React Native</span></div>
-        <div class="skill-chip"><i class="bx bxl-react"></i><span>React</span></div>
-        <div class="skill-chip"><i class="bx bxl-nodejs"></i><span>Node.js</span></div>
-        <div class="skill-chip"><i class="bx bx-server"></i><span>Express.js</span></div>
-        <div class="skill-chip"><i class="bx bxl-flutter"></i><span>Flutter</span></div>
-      </div>
-    </div>
-
-    <!-- Libraries -->
-    <div class="skills-group">
-      <h4 class="skills-heading">Libraries</h4>
-      <div class="skills-chip-container">
-        <div class="skill-chip"><i class="bx bx-layer"></i><span>Redux</span></div>
-        <div class="skill-chip"><i class="bx bx-navigation"></i><span>React Navigation</span></div>
-        <div class="skill-chip"><i class="bx bx-run"></i><span>Reanimated</span></div>
-        <div class="skill-chip"><i class="bx bx-list-ul"></i><span>FlashList</span></div>
-        <div class="skill-chip"><i class="bx bx-chip"></i><span>MMKV</span></div>
-        <div class="skill-chip"><i class="bx bx-paint"></i><span>Skia</span></div>
-      </div>
-    </div>
-
-    <!-- Databases -->
-    <div class="skills-group">
-      <h4 class="skills-heading">Databases</h4>
-      <div class="skills-chip-container">
-        <div class="skill-chip"><i class="bx bx-data"></i><span>PostgreSQL</span></div>
-        <div class="skill-chip"><i class="bx bx-leaf"></i><span>MongoDB</span></div>
-        <div class="skill-chip"><i class="bx bx-database"></i><span>MySQL</span></div>
-        <div class="skill-chip"><i class="bx bxl-firebase"></i><span>Firebase</span></div>
-      </div>
-    </div>
-
-    <!-- AI & Search -->
-    <div class="skills-group">
-      <h4 class="skills-heading">AI & Search</h4>
-      <div class="skills-chip-container">
-        <div class="skill-chip"><i class="bx bx-brain"></i><span>LLM Integration</span></div>
-        <div class="skill-chip"><i class="bx bx-message-rounded-dots"></i><span>Prompt Engineering</span></div>
-        <div class="skill-chip"><i class="bx bx-vector"></i><span>Vector Embeddings</span></div>
-        <div class="skill-chip"><i class="bx bx-search"></i><span>Semantic Retrieval</span></div>
-      </div>
-    </div>
-
-    <!-- Tools -->
-    <div class="skills-group">
-      <h4 class="skills-heading">Tools & Platforms</h4>
-      <div class="skills-chip-container">
-        <div class="skill-chip"><i class="bx bxl-git"></i><span>Git</span></div>
-        <div class="skill-chip"><i class="bx bxl-github"></i><span>GitHub</span></div>
-        <div class="skill-chip"><i class="bx bx-refresh"></i><span>CI/CD</span></div>
-        <div class="skill-chip"><i class="bx bx-mobile"></i><span>Expo EAS</span></div>
-        <div class="skill-chip"><i class="bx bx-line-chart"></i><span>Mixpanel</span></div>
-        <div class="skill-chip"><i class="bx bx-shield"></i><span>SonarQube</span></div>
-        <div class="skill-chip"><i class="bx bx-bug"></i><span>Sentry</span></div>
-        <div class="skill-chip"><i class="bx bx-send"></i><span>Postman</span></div>
-        <div class="skill-chip"><i class="bx bx-pulse"></i><span>React Profiler</span></div>
-      </div>
-    </div>
-
-    <!-- Architecture -->
-    <div class="skills-group">
-      <h4 class="skills-heading">Architecture & Patterns</h4>
-      <div class="skills-chip-container">
-        <div class="skill-chip"><i class="bx bx-layer"></i><span>MVVM</span></div>
-        <div class="skill-chip"><i class="bx bx-buildings"></i><span>Clean Architecture</span></div>
-        <div class="skill-chip"><i class="bx bx-grid-alt"></i><span>Modular Architecture</span></div>
-        <div class="skill-chip"><i class="bx bx-lock"></i><span>RBAC</span></div>
-        <div class="skill-chip"><i class="bx bx-network-chart"></i><span>Multi-Tenant Systems</span></div>
-      </div>
-    </div>
-
-  </div>
-</section>
-
-
-
-  <!-- End Skills Section -->
-
-
-
-
-  <!-- Start Links section -->
-  <section id="resume" class="services">
-  <div class="container">
-
-    <div class="section-title">
-      <h2>Resume</h2>
-    </div>
-
-    <div class="row">
-      <div class="col-lg-12 icon-box">
-        <p style="margin-bottom:14px;">
-          View or download my latest resume:
-          <a href="https://drive.google.com/file/d/1G5moTFopYisCTNMDHGs63Z7v2jt8dVUy/view?usp=sharing"
-             target="_blank">
-            Open Resume ↗
-          </a>
-        </p>
-
-        <iframe
-          src="https://drive.google.com/file/d/1G5moTFopYisCTNMDHGs63Z7v2jt8dVUy/preview"
-          width="100%"
-          height="790"
-          style="border-radius:12px; border:none;">
-        </iframe>
-      </div>
-    </div>
-
-  </div>
-</section>
-
-  </section> <!--End Links Section -->
-
-
-  <!-- Start Contact Section -->
-
-  <section id="contacts" class="contact">
-    <div class="container">
-
-      <div class="section-title">
-        <h2>Contact</h2>
-      </div>
-
-      <div class="row mt-2">
-
-        <div class="col-md-6 d-flex align-items-stretch">
-          <div class="info-box">
-            <i class="bx bx-map"></i>
-            <h3>My Address</h3>
-            <p>Muradnagar</p>
-            <p>Ghaziabad</p>
-            <p>India</p>
-          </div>
-        </div>
-
-        <div class="col-md-6 mt-4 mt-md-0 d-flex align-items-stretch">
-          <div class="info-box">
-            <i class="bx bx-share-alt"></i>
-            <h3>Social Profiles</h3>
-            <div class="social-links">
-              <a href="https://www.linkedin.com/in/harsh-gaur-520a73258/" target="_blank" class="linkedin"><i class="bx bxl-linkedin"></i></a>
-              <a href="https://github.com/HarshGaur017" target="_blank" class="github"><i class="bx bxl-github"></i></a>
-              <a href="mailto:harshgaur017@gmail.com" target="_blank" class="google"><i class="bx bxl-google"></i></a>
-
-            </div>
-          </div>
-        </div>
-
-        <div class="col-md-6 mt-4 d-flex align-items-stretch">
-          <div class="info-box">
-            <i class="bx bx-envelope"></i>
-            <h3>Email</h3>
-            <p>harshgaur017@gmail.com</p>
-            <p>24ioha037@rkgit.edu.in</p>
-          </div>
-        </div>
-        <div class="col-md-6 mt-4 d-flex align-items-stretch">
-          <div class="info-box">
-            <i class="bx bx-phone-call"></i>
-            <h3>Contact</h3>
-            <p>+91 7017986885</p>
-          </div>
-        </div>
-      </div>
-     
-    </div>
-  </section>
-
-  <!-- End Contact Section -->
-
-
-  <script src="assets/vendor/jquery/jquery.min.js"></script>
-  <script src="assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
-  <script src="assets/vendor/jquery.easing/jquery.easing.min.js"></script>
-  <script src="assets/vendor/php-email-form/validate.js"></script>
-  <script src="assets/vendor/waypoints/jquery.waypoints.min.js"></script>
-  <script src="assets/vendor/counterup/counterup.min.js"></script>
-  <script src="assets/vendor/owl.carousel/owl.carousel.min.js"></script>
-  <script src="assets/vendor/isotope-layout/isotope.pkgd.min.js"></script>
-  <script src="assets/vendor/venobox/venobox.min.js"></script>
-  <script src="assets/vendor/typed.js/typed.min.js"></script>
-  <script type="text/javascript">
-    var typed = new Typed('.typing',{
-      strings: [
-    "React Native And Mobile Systems",
-    "Scalable Backend Development",
-    "AI-Powered Product Features"
-  ],
-      loop: true,
-      typeSpeed: 55,
-      backSpeed: 45
-    });
-  </script>
-
-  
-  <script src="assets/js/main.js"></script>
-<footer class="site-footer">
-  © 2026 Harsh Gaur | Built with ☕, 💻 & ❤️
-</footer>
-
+<body>
+	<a class="skip" href="#main">Skip to content</a>
+	<div class="progress" id="progress" aria-hidden="true"></div>
+	<div class="cursor-glow" id="cursor-glow" aria-hidden="true"></div>
+
+	<!-- ============ nav ============ -->
+	<nav class="nav" id="nav">
+		<div class="nav-in">
+			<a class="brand" href="#top">harsh&#8203;gaur<span style="color:var(--accent)">.</span></a>
+			<div class="nav-links">
+				<a href="/about.html">About</a>
+				<a href="/writing/">Writing</a>
+				<a href="#experience">Experience</a>
+				<a href="#projects">Projects</a>
+				<a href="#skills">Skills</a>
+				<a class="nav-resume" href="/Harsh_Gaur_SDE_CV.pdf" target="_blank" rel="noopener">Résumé ↗</a>
+				<button class="icon-btn" id="theme-toggle" type="button" aria-label="Switch theme">
+					<svg class="moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+						stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+						<path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z" />
+					</svg>
+					<svg class="sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+						stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+						<circle cx="12" cy="12" r="4" />
+						<path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4" />
+					</svg>
+				</button>
+			</div>
+		</div>
+	</nav>
+
+	<main id="main">
+		<!-- ============ hero ============ -->
+		<section class="hero" id="hero">
+			<a id="top"></a>
+			<canvas id="field" aria-hidden="true"></canvas>
+			<div class="wrap hero-in">
+				<span class="hero-tag">Full-Stack AI Developer</span>
+
+				<h1>Harsh Gaur</h1>
+				<p class="hero-role">Node.js <span class="accent">·</span> React Native <span class="accent">·</span> PostgreSQL <span class="accent">·</span> LLM systems</p>
+
+				<p class="hero-pitch">
+					I design <strong>distributed backend systems</strong> — event-driven queues, GraphQL APIs,
+					vector retrieval and production LLM pipelines — and the <strong>React Native</strong>
+					clients that consume them.
+				</p>
+
+				<div class="cta-row">
+					<a class="btn btn-primary" href="#work">
+						See the work
+						<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+					</a>
+					<a class="btn" href="https://github.com/HarshGaur017" target="_blank" rel="noopener">
+						<svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 .3a12 12 0 0 0-3.8 23.4c.6.1.8-.3.8-.6v-2.2c-3.3.7-4-1.6-4-1.6-.6-1.4-1.3-1.8-1.3-1.8-1.1-.7.1-.7.1-.7 1.2.1 1.8 1.2 1.8 1.2 1 1.8 2.8 1.3 3.5 1 .1-.8.4-1.3.7-1.6-2.7-.3-5.5-1.3-5.5-5.9 0-1.3.5-2.4 1.2-3.2-.1-.3-.5-1.5.1-3.2 0 0 1-.3 3.3 1.2a11.5 11.5 0 0 1 6 0C17.2 4.8 18.2 5 18.2 5c.6 1.7.2 2.9.1 3.2.8.8 1.2 1.9 1.2 3.2 0 4.6-2.8 5.6-5.5 5.9.4.4.8 1.1.8 2.2v3.3c0 .3.2.7.8.6A12 12 0 0 0 12 .3z"/></svg>
+						GitHub
+					</a>
+					<a class="btn" href="https://www.linkedin.com/in/harsh-gaur-520a73258" target="_blank" rel="noopener">
+						<svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M4.98 3.5a2.5 2.5 0 1 1 0 5 2.5 2.5 0 0 1 0-5zM2.4 21.5h5.2V9.3H2.4v12.2zM9.9 9.3h5v1.7h.1a5.5 5.5 0 0 1 4.9-2.7c3.5 0 4.8 2.3 4.8 5.9v7.3h-5.2v-6.5c0-1.6-.6-2.7-2-2.7-1.2 0-1.9.8-2.2 1.6-.1.3-.1.7-.1 1v6.6H9.9V9.3z"/></svg>
+						LinkedIn
+					</a>
+					<a class="btn" href="#contact">Contact</a>
+				</div>
+
+				<div class="stats">
+					<div class="stat">
+						<span class="stat-num" data-count="2483">2,483</span>
+						<span class="stat-label">commits shipped</span>
+					</div>
+					<div class="stat">
+						<span class="stat-num" data-count="2" data-suffix="+">2+</span>
+						<span class="stat-label">years shipping production code</span>
+					</div>
+					<div class="stat">
+						<span class="stat-num" data-count="2">2</span>
+						<span class="stat-label">apps live on Play Store &amp; App Store</span>
+					</div>
+					<div class="stat">
+						<span class="stat-num" data-count="4">4</span>
+						<span class="stat-label">ERP systems integrated</span>
+					</div>
+				</div>
+			</div>
+		</section>
+
+		<!-- ============ experience ============ -->
+		<section id="experience">
+			<div class="wrap">
+				<div class="reveal">
+					<h2 class="section-title">Experience</h2>
+				</div>
+
+				<div class="job reveal">
+					<div class="job-head">
+						<span class="job-title">Software Engineer — Full-Stack &amp; AI</span>
+						<span class="job-meta">February 2025 – Present</span>
+					</div>
+					<p class="job-co">Mulltiply · B2B commerce platform for Indian retail</p>
+					<ul class="bullets">
+						<li>Authored <strong>2,483 commits (~170,000 lines)</strong> across 11 production repositories; <strong>second-highest all-time contributor</strong> on the flagship React Native app and 879 commits into a 17,000-commit GraphQL core.</li>
+						<li>Built an <strong>LLM-powered Hindi/Hinglish search parser</strong> that compiles natural-language and Devanagari queries — including colloquial price intent — into Meilisearch filter DSL.</li>
+						<li>Owned the <strong>ERP integration platform</strong> connecting the product to Marg, Tally, Busy, Zoho and Shopify: OAuth flows, item/pricing/order/ledger/invoice sync, and batch-wise processing for large payloads.</li>
+						<li>Designed a <strong>semantic recommendation engine</strong> on PostgreSQL + pgvector with cron-driven embedding and similarity-computation workers.</li>
+						<li>Built an <strong>OCR + LLM document pipeline</strong> (PaddleOCR/Tesseract/ONNX behind FastAPI, structured by OpenAI) converting photographed invoices into orders, with a training-data capture loop.</li>
+						<li>Shipped <strong>voice ordering</strong> — speech → transcript → LLM parsing with automatic language detection.</li>
+						<li>Replaced hardcoded notification triggers with a <strong>rule-based workflow engine</strong>, removing deploys from routine ops changes.</li>
+						<li>Migrated marketing-template scheduling from Agenda to <strong>BullMQ</strong>, resolving a duplicate-send bug; diagnosed and fixed <strong>event-loop blocking</strong> from synchronous <span class="mono" style="font-size:13px">fs</span> and logging calls in the high-traffic API.</li>
+						<li>Created <strong>16 backend modules from scratch</strong> — recommendations, vouchers, notification workflow, marketing templates, ERP connectors, user preferences, OCR training data, audit logging.</li>
+						<li>Delivered <strong>16 screens and 12 reusable components</strong> in React Native (TypeScript, Redux Toolkit, Reanimated) including payments, wallet, credit applications and gamified rewards; cut startup time <strong>~40%</strong> via lazy-loading, shimmer placeholders and render profiling.</li>
+						<li>Instrumented the app with an <strong>8-module Mixpanel analytics layer</strong> plus Sentry and Crashlytics; authored 15+ integration and unit test suites and maintained SonarQube compliance.</li>
+					</ul>
+				</div>
+
+				<div class="job reveal">
+					<div class="job-head">
+						<span class="job-title">Software Engineer Intern — React Native</span>
+						<span class="job-meta">September 2024 – February 2025</span>
+					</div>
+					<p class="job-co">Mulltiply</p>
+					<ul class="bullets">
+						<li>Built React Native screens and navigation flows against production standards, working inside a modular architecture.</li>
+						<li>Improved render performance and state management on existing screens.</li>
+						<li>Gained hands-on production debugging and API integration experience.</li>
+					</ul>
+				</div>
+			</div>
+		</section>
+
+		<!-- ============ skills ============ -->
+		<section id="skills">
+			<div class="wrap">
+				<div class="reveal">
+					<h2 class="section-title">Skills</h2>
+					<p class="section-sub">Ordered by depth. Everything listed here is something I've shipped with.</p>
+				</div>
+
+				<div class="reveal">
+					<div class="skill-row">
+						<div class="skill-cat">Languages</div>
+						<div class="skill-list"><span class="pri">JavaScript, TypeScript, Node.js, Python, SQL</span><span class="sec"> · Java, Dart, HTML, CSS</span></div>
+					</div>
+					<div class="skill-row">
+						<div class="skill-cat">Backend &amp; APIs</div>
+						<div class="skill-list"><span class="pri">Express, GraphQL (Apollo Server 4), REST, Sequelize, Prisma, Mongoose</span><span class="sec"> · FastAPI, schema stitching, Casbin RBAC, JWT, Zod</span></div>
+					</div>
+					<div class="skill-row">
+						<div class="skill-cat">Data &amp; search</div>
+						<div class="skill-list"><span class="pri">PostgreSQL, pgvector, Redis, MongoDB, Meilisearch</span><span class="sec"> · Elasticsearch, MySQL, Firebase, ivfflat indexing, query tuning</span></div>
+					</div>
+					<div class="skill-row">
+						<div class="skill-cat">AI &amp; LLM</div>
+						<div class="skill-list"><span class="pri">OpenAI API, prompt engineering, RAG, vector embeddings, semantic retrieval</span><span class="sec"> · OCR (PaddleOCR, Tesseract, ONNX), Ollama, intent parsing, speech-to-text pipelines</span></div>
+					</div>
+					<div class="skill-row">
+						<div class="skill-cat">Queues &amp; events</div>
+						<div class="skill-list"><span class="pri">BullMQ, Agenda, Redis pub/sub, Socket.IO (Redis adapter)</span><span class="sec"> · cron workers, event-driven architecture, idempotent job design</span></div>
+					</div>
+					<div class="skill-row">
+						<div class="skill-cat">Mobile</div>
+						<div class="skill-list"><span class="pri">React Native, Expo, EAS Build, Redux Toolkit, React Navigation, Reanimated</span><span class="sec"> · OTA updates, deep linking, i18n, FlashList, MMKV, Skia</span></div>
+					</div>
+					<div class="skill-row">
+						<div class="skill-cat">Integrations</div>
+						<div class="skill-list"><span class="pri">Marg ERP, Tally, Busy, Zoho (OAuth), Razorpay, WhatsApp Cloud API</span><span class="sec"> · Shopify, AWS S3, Google APIs, Brevo, FCM</span></div>
+					</div>
+					<div class="skill-row">
+						<div class="skill-cat">Ops &amp; quality</div>
+						<div class="skill-list"><span class="pri">Docker, Git, CI/CD, Jest, Supertest, Sentry, Prometheus, Grafana Loki</span><span class="sec"> · SonarQube, Mixpanel, Turborepo, pnpm, ESLint, Husky</span></div>
+					</div>
+					<div class="skill-row">
+						<div class="skill-cat">Learning now</div>
+						<div class="skill-list"><span class="sec">Kubernetes, ArgoCD, LangGraph multi-agent orchestration, Postgres query-plan optimisation</span></div>
+					</div>
+				</div>
+			</div>
+		</section>
+
+		<!-- ============ projects ============ -->
+		<section id="projects">
+			<div class="wrap">
+				<div class="reveal">
+					<h2 class="section-title">Projects</h2>
+					<p class="section-sub">Live products and personal systems — not coursework.</p>
+				</div>
+
+				<div class="grid">
+					<article class="card reveal">
+						<div class="proj-head">
+							<h3>MulltiplyR — B2B retail marketplace</h3>
+							<span class="badge badge-live">Live · Play Store</span>
+						</div>
+						<p style="font-size:14px;color:var(--muted);margin-bottom:12px">
+							The retailer-facing React Native app, serving a catalogue of 10,000+ SKUs with
+							real-time stock, GST invoicing, multilingual UI, deep linking, RBAC and OTA updates.
+							I'm the second-highest contributor across its history — 1,023 commits, 16 screens,
+							12 components and the full analytics layer.
+						</p>
+						<p class="result" style="font-size:13px;color:var(--text);border-left:2px solid var(--accent);padding-left:11px;margin-bottom:12px">
+							~40% faster cold start through lazy-loaded home surfaces, shimmer placeholders and
+							render profiling.
+						</p>
+						<div class="tags">
+							<span class="tag">React Native</span><span class="tag">Expo / EAS</span>
+							<span class="tag">TypeScript</span><span class="tag">Redux Toolkit</span>
+							<span class="tag">Reanimated</span><span class="tag">Mixpanel</span>
+						</div>
+						<div class="proj-links">
+							<a href="https://play.google.com/store/apps/details?id=com.mulltiply.mulltiplyr" target="_blank" rel="noopener">Play Store ↗</a>
+						</div>
+					</article>
+
+					<article class="card reveal">
+						<div class="proj-head">
+							<h3>AI Business Operations Assistant</h3>
+							<span class="badge">Personal</span>
+						</div>
+						<p style="font-size:14px;color:var(--muted);margin-bottom:12px">
+							A multi-tenant RAG platform where an organisation uploads its internal documents
+							(HR, policies, SOPs) and queries them in natural language, with versioning and
+							role-based access.
+						</p>
+						<p class="result" style="font-size:13px;color:var(--text);border-left:2px solid var(--accent);padding-left:11px;margin-bottom:12px">
+							PDF parsing → chunking → 1536-dim embeddings in pgvector with an
+							<span class="mono" style="font-size:12px">ivfflat</span> cosine index; tenant isolation
+							enforced at the schema level by org-scoped foreign keys; and a hand-rolled Postgres
+							job queue driving the embedding worker rather than an off-the-shelf broker.
+						</p>
+						<div class="tags">
+							<span class="tag">TypeScript</span><span class="tag">Express 5</span>
+							<span class="tag">PostgreSQL</span><span class="tag">pgvector</span>
+							<span class="tag">OpenAI</span><span class="tag">Zod</span><span class="tag">JWT</span>
+						</div>
+					</article>
+
+					<article class="card reveal">
+						<div class="proj-head">
+							<h3>DevFlow — AI engineering workspace</h3>
+							<span class="badge">In development</span>
+						</div>
+						<p style="font-size:14px;color:var(--muted);margin-bottom:12px">
+							A unified engineering dashboard that harvests your GitHub history — including private
+							organisation repositories — and synthesises it into a career and impact report.
+						</p>
+						<p class="result" style="font-size:13px;color:var(--text);border-left:2px solid var(--accent);padding-left:11px;margin-bottom:12px">
+							Walks the GitHub GraphQL API with author-filtered commit pagination, honours
+							rate-limit hints with exponential backoff, and harvests repositories through a
+							fixed-size concurrency pool so a two-year scan survives throttling. Turborepo
+							monorepo with detached background scans the client polls.
+						</p>
+						<div class="tags">
+							<span class="tag">Next.js</span><span class="tag">Express</span>
+							<span class="tag">Prisma</span><span class="tag">PostgreSQL</span>
+							<span class="tag">Redis</span><span class="tag">Turborepo</span>
+							<span class="tag">GitHub GraphQL</span>
+						</div>
+					</article>
+				</div>
+			</div>
+		</section>
+
+		<!-- ============ work ============ -->
+		<section id="work">
+			<div class="wrap">
+				<div class="reveal">
+					<h2 class="section-title">Selected work</h2>
+					<p class="section-sub">
+						Six systems I own or built from scratch. All production, all at Mulltiply.
+					</p>
+				</div>
+
+				<div class="grid grid-2">
+					<article class="card work-card reveal">
+						<h3><span class="num">01</span> Hinglish search parser</h3>
+						<p>
+							An LLM query parser that converts natural-language Hindi, Hinglish and Devanagari
+							product queries into a structured Meilisearch query plus a filter expression —
+							transliterating <span class="mono" style="font-size:13px">चना दाल → chana dal</span>
+							and detecting colloquial price intent like <em>"500 tak"</em>, <em>"1000 ke aaspas"</em>,
+							<em>"kitne ka"</em>.
+						</p>
+						<p class="result">
+							Treated as a compiler, not a chatbot: price cues resolve to concrete numeric bounds
+							at parse time, approximate prices expand to ±10% ranges, and a bare number without a
+							price cue is explicitly <em>not</em> read as a price — so the model can't invent filters.
+						</p>
+						<div class="tags">
+							<span class="tag">OpenAI</span><span class="tag">Meilisearch</span>
+							<span class="tag">Prompt engineering</span><span class="tag">Node.js</span>
+						</div>
+					</article>
+
+					<article class="card work-card reveal">
+						<h3><span class="num">02</span> ERP integration platform</h3>
+						<p>
+							Owned the connector layer that syncs the platform with the offline accounting
+							software Indian distributors actually run — <strong>Marg, Tally, Busy and Zoho</strong>,
+							plus Shopify.
+						</p>
+						<p class="result">
+							Built Zoho's full OAuth flow, Marg item/pricing/order/ledger/invoice sync with
+							batch-wise processing for oversized payloads, and Busy CRUD for items, customers,
+							invoices and stock. Wrote the transform layer that reconciles four incompatible ERP
+							schemas into one internal model.
+						</p>
+						<div class="tags">
+							<span class="tag">OAuth 2.0</span><span class="tag">Sequelize</span>
+							<span class="tag">XML / REST</span><span class="tag">Idempotent sync</span>
+						</div>
+					</article>
+
+					<article class="card work-card reveal">
+						<h3><span class="num">03</span> Invoice OCR pipeline</h3>
+						<p>
+							Retailers order from paper invoices and handwritten lists. This turns a photo into
+							structured order lines.
+						</p>
+						<p class="result">
+							Multi-file upload and parsing, an LLM pass that structures raw OCR text, a preview
+							step before anything is committed, and an <span class="mono" style="font-size:13px">ocrTrainingData</span>
+							module I created to capture results for model improvement. Contributed to the Python
+							service behind it.
+						</p>
+						<div class="tags">
+							<span class="tag">FastAPI</span><span class="tag">PaddleOCR</span>
+							<span class="tag">Tesseract</span><span class="tag">ONNX</span><span class="tag">PyMuPDF</span>
+						</div>
+					</article>
+
+					<article class="card work-card reveal">
+						<h3><span class="num">04</span> Voice ordering</h3>
+						<p>
+							A zero-typing order path for users with low literacy or low comfort with apps.
+						</p>
+						<p class="result">
+							Speech → transcript → LLM parser, with automatic language detection, wired through
+							to the cart. Removes the keyboard from the critical path entirely.
+						</p>
+						<div class="tags">
+							<span class="tag">Speech-to-text</span><span class="tag">LLM parsing</span>
+							<span class="tag">Language detection</span><span class="tag">React Native</span>
+						</div>
+					</article>
+
+					<article class="card work-card reveal">
+						<h3><span class="num">05</span> Semantic recommendations</h3>
+						<p>
+							"Similar products" without a hand-built taxonomy.
+						</p>
+						<p class="result">
+							Added embedding columns to the items table (SKU attributes and AI-generated tags
+							included in the embedding text), fixed vector dimensionality, and built a similarity
+							computation worker plus cron-driven embedding jobs. Created the recommendation module
+							from scratch.
+						</p>
+						<div class="tags">
+							<span class="tag">pgvector</span><span class="tag">PostgreSQL</span>
+							<span class="tag">Embeddings</span><span class="tag">BullMQ</span>
+						</div>
+					</article>
+
+					<article class="card work-card reveal">
+						<h3><span class="num">06</span> Notification rules engine</h3>
+						<p>
+							Notification triggers were hardcoded — every change to who gets told what needed a
+							deploy.
+						</p>
+						<p class="result">
+							Replaced them with a rule-based engine: configurable event keys, recipient types
+							(employee, custom, retailer, salesman) with validation and normalisation, and a
+							default event registry. Ops now self-serve. Also traced and fixed a duplicate-notification
+							bug caused by salesman details leaking into workflow events.
+						</p>
+						<div class="tags">
+							<span class="tag">Event-driven</span><span class="tag">BullMQ</span>
+							<span class="tag">WhatsApp Cloud API</span><span class="tag">FCM</span>
+						</div>
+					</article>
+				</div>
+			</div>
+		</section>
+
+		<!-- ============ writing ============ -->
+		<section id="writing">
+			<div class="wrap">
+				<div class="reveal">
+					<h2 class="section-title">Writing</h2>
+					<p class="section-sub">
+						Longer pieces on retrieval, recommendations and event-driven architecture.
+						<a href="/writing/">Read all →</a>
+					</p>
+				</div>
+
+				<div class="reveal">
+					<a class="post" href="/writing/which-number-is-the-price.html" style="display:block">
+						<div class="post-head">
+							<h3>Which number is the price?</h3>
+							<span class="badge">9 min</span>
+						</div>
+						<p>Parsing Hinglish product search, where "kids shoes 7 number 400gm 500 rs tak" contains four numbers and exactly one of them is money.</p>
+					</a>
+					<a class="post" href="/writing/four-signals-one-score.html" style="display:block">
+						<div class="post-head">
+							<h3>Four signals, one score</h3>
+							<span class="badge">8 min</span>
+						</div>
+						<p>Why a pure embedding recommender returns beautiful, useless results — and how blending it with co-occurrence, category and attribute signals fixes that.</p>
+					</a>
+					<a class="post" href="/writing/who-gets-told-what.html" style="display:block">
+						<div class="post-head">
+							<h3>Who gets told what</h3>
+							<span class="badge">7 min</span>
+						</div>
+						<p>Replacing hardcoded notification triggers with a rules engine, and the duplicate-message bug that only appeared when one person held two roles.</p>
+					</a>
+				</div>
+			</div>
+		</section>
+
+		<!-- ============ education ============ -->
+		<section id="education">
+			<div class="wrap reveal">
+				<h2 class="section-title">Education</h2>
+				<div class="edu-head" style="margin-bottom:4px">
+					<span class="job-title">B.Tech, Computer Science &amp; Engineering (IoT)</span>
+					<span class="job-meta">August 2020 – June 2024</span>
+				</div>
+				<p style="color:var(--accent);font-size:14px;margin-bottom:8px">
+					<a href="https://rkgit.edu.in/" target="_blank" rel="noopener">Raj Kumar Goel Institute of Technology</a> · Ghaziabad, UP
+				</p>
+				<p style="color:var(--muted);font-size:14px">
+					Coursework in cloud computing, distributed and IoT system architecture, sensor networks
+					and network planning.
+				</p>
+
+				<div class="certs">
+					<a class="cert" href="https://www.linkedin.com/learning/certificates/580da54431be3dd894e75d9fba4b50f071544547a3e11e061868baf620cfff77" target="_blank" rel="noopener">Career Essentials in Generative AI — Microsoft &amp; LinkedIn ↗</a>
+					<a class="cert" href="https://www.coursera.org/account/accomplishments/verify/ARNBBD7CFJAY" target="_blank" rel="noopener">Python with Data Structures &amp; Algorithms ↗</a>
+				</div>
+			</div>
+		</section>
+
+		<!-- ============ contact ============ -->
+		<section id="contact">
+			<div class="wrap reveal">
+				<h2 class="section-title">Contact</h2>
+				<p class="section-sub">Fastest by email. Based in Ghaziabad, working in Noida, Uttar Pradesh.</p>
+
+				<div class="contact-grid">
+					<a class="card contact-row" href="mailto:harshgaur017@gmail.com">
+						<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m2 7 10 6 10-6"/></svg>
+						<span>harshgaur017@gmail.com</span>
+					</a>
+					<a class="card contact-row" href="tel:+917017986885">
+						<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1 1 .4 1.9.7 2.8a2 2 0 0 1-.5 2.1L8.1 9.9a16 16 0 0 0 6 6l1.3-1.3a2 2 0 0 1 2.1-.4c.9.3 1.8.5 2.8.6a2 2 0 0 1 1.7 2.1z"/></svg>
+						<span>+91 70179 86885</span>
+					</a>
+					<a class="card contact-row" href="https://github.com/HarshGaur017" target="_blank" rel="noopener">
+						<svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 .3a12 12 0 0 0-3.8 23.4c.6.1.8-.3.8-.6v-2.2c-3.3.7-4-1.6-4-1.6-.6-1.4-1.3-1.8-1.3-1.8-1.1-.7.1-.7.1-.7 1.2.1 1.8 1.2 1.8 1.2 1 1.8 2.8 1.3 3.5 1 .1-.8.4-1.3.7-1.6-2.7-.3-5.5-1.3-5.5-5.9 0-1.3.5-2.4 1.2-3.2-.1-.3-.5-1.5.1-3.2 0 0 1-.3 3.3 1.2a11.5 11.5 0 0 1 6 0C17.2 4.8 18.2 5 18.2 5c.6 1.7.2 2.9.1 3.2.8.8 1.2 1.9 1.2 3.2 0 4.6-2.8 5.6-5.5 5.9.4.4.8 1.1.8 2.2v3.3c0 .3.2.7.8.6A12 12 0 0 0 12 .3z"/></svg>
+						<span>github.com/HarshGaur017</span>
+					</a>
+					<a class="card contact-row" href="https://www.linkedin.com/in/harsh-gaur-520a73258" target="_blank" rel="noopener">
+						<svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M4.98 3.5a2.5 2.5 0 1 1 0 5 2.5 2.5 0 0 1 0-5zM2.4 21.5h5.2V9.3H2.4v12.2zM9.9 9.3h5v1.7h.1a5.5 5.5 0 0 1 4.9-2.7c3.5 0 4.8 2.3 4.8 5.9v7.3h-5.2v-6.5c0-1.6-.6-2.7-2-2.7-1.2 0-1.9.8-2.2 1.6-.1.3-.1.7-.1 1v6.6H9.9V9.3z"/></svg>
+						<span>linkedin.com/in/harsh-gaur</span>
+					</a>
+				</div>
+
+			</div>
+		</section>
+	</main>
+
+	<footer>
+		<div class="wrap">
+			<div class="foot-in">
+				<span>© <span id="year">2026</span> Harsh Gaur</span>
+				<span>
+					<a href="/about.html">About</a> ·
+					<a href="/writing/">Writing</a> ·
+					<a href="https://github.com/HarshGaur017" target="_blank" rel="noopener">GitHub</a> ·
+					<a href="https://www.linkedin.com/in/harsh-gaur-520a73258" target="_blank" rel="noopener">LinkedIn</a> ·
+					<a href="mailto:harshgaur017@gmail.com">Email</a>
+				</span>
+			</div>
+			<p class="foot-note">
+				Designed and built from scratch <span aria-hidden="true">💻 ☕</span>
+			</p>
+		</div>
+	</footer>
+
+	<script src="assets/js/site.js" defer></script>
 </body>
-
 
 </html>

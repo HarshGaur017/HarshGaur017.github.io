@@ -1,0 +1,287 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>Which number is the price? — Harsh Gaur</title>
+	<meta name="description"
+		content="Parsing code-mixed Hindi and Hinglish product search: disambiguating price from size, pre-computing numeric bounds, and treating the language model as a compiler rather than a chatbot.">
+	<meta name="theme-color" content="#17191E">
+	<link rel="canonical" href="https://harshgaur017.github.io/writing/which-number-is-the-price.html">
+	<meta property="og:type" content="article">
+	<meta property="og:site_name" content="Harsh Gaur">
+	<meta property="og:title" content="Which number is the price?">
+	<meta property="og:description" content="A retailer types &quot;kids shoes 7 number 400gm 500 rs tak&quot;. Four numbers, exactly one of them is money.">
+	<meta property="og:url" content="https://harshgaur017.github.io/writing/which-number-is-the-price.html">
+	<meta property="og:image" content="https://harshgaur017.github.io/assets/img/og-banner.png">
+	<meta name="twitter:card" content="summary_large_image">
+	<link rel="icon" type="image/png" href="/assets/img/favicon-192.png">
+	<link rel="manifest" href="/site.webmanifest">
+	<link rel="alternate" type="application/rss+xml" title="Harsh Gaur — Writing" href="/feed.xml">
+	<link rel="stylesheet" href="/assets/css/site.css">
+	<script>
+		(function () {
+			document.documentElement.classList.add("js");
+			try {
+				var saved = localStorage.getItem("theme");
+				if (saved === "light") document.documentElement.setAttribute("data-theme", "light");
+				else if (saved === "dark") document.documentElement.removeAttribute("data-theme");
+			} catch (e) { }
+		})();
+	</script>
+</head>
+
+<body>
+	<a class="skip" href="#main">Skip to content</a>
+	<div class="progress" id="progress" aria-hidden="true"></div>
+	<div class="cursor-glow" id="cursor-glow" aria-hidden="true"></div>
+
+	<nav class="nav" id="nav">
+		<div class="nav-in">
+			<a class="brand" href="/">harsh&#8203;gaur<span style="color:var(--accent)">.</span></a>
+			<div class="nav-links">
+				<a href="/about.html">About</a>
+				<a class="current" href="/writing/">Writing</a>
+				<a href="/#experience">Experience</a>
+				<a href="/#projects">Projects</a>
+				<a href="/#skills">Skills</a>
+				<a class="nav-resume" href="/Harsh_Gaur_SDE_CV.pdf" target="_blank" rel="noopener">Résumé ↗</a>
+			</div>
+		</div>
+	</nav>
+
+	<main id="main">
+		<section style="padding-top:64px">
+			<div class="wrap">
+				<article class="article">
+					<header class="article-head">
+						<div class="post-meta">Search · 9 min read</div>
+						<h1>Which number is the price?</h1>
+						<p class="standfirst">
+							A retailer types <em>"kids shoes 7 number 400gm 500 rs tak"</em>. There are four
+							numbers in that query and exactly one of them is money. Here is how I ended up
+							treating a language model as a compiler to find it.
+						</p>
+					</header>
+
+					<div class="article-body">
+						<p>
+							Most search advice assumes your users type like you do. Mine don't. They are small
+							retailers ordering stock on a phone, often with a patchy connection, and they type the
+							way they speak — Hindi words in Latin script, English product names, Devanagari when
+							the keyboard is already in that mode, and numbers scattered through the query meaning
+							completely different things.
+						</p>
+						<p>
+							A representative query: <code>kids shoes 7 number 400gm 500 rs tak</code>. A human
+							reads that instantly — children's shoes, size 7, 400 gram pack, under ₹500. A keyword
+							search engine reads four numeric tokens and has no idea that only one of them is a
+							price.
+						</p>
+
+						<h2>Why keyword search alone fails here</h2>
+						<p>
+							The first instinct is to fix this with tokenisation and synonyms. It doesn't hold up.
+							Code-mixed language has no stable spelling — the same product gets typed a dozen ways,
+							and a synonym table becomes a permanent maintenance tax that is always slightly out of
+							date.
+						</p>
+						<p>
+							More fundamentally, the problem isn't vocabulary, it's <strong>intent</strong>. The
+							engine needs to know that <code>500 rs tak</code> is a filter on price while
+							<code>400gm</code> is part of what the user is looking for. That's a parsing problem,
+							not a matching problem, and no amount of analyser configuration solves it.
+						</p>
+
+						<h2>Why "just ask the LLM" also fails</h2>
+						<p>
+							The obvious next move is to hand the query to a language model and ask for a filter.
+							This works beautifully in a demo and badly in production, for a reason that took me a
+							while to name:
+						</p>
+						<div class="callout">
+							<strong>A model asked to produce a filter will always produce a filter.</strong>
+							Ask it for structured output and it will invent structure, because returning nothing
+							looks like failure. In search, a hallucinated filter is worse than no filter — it
+							silently removes correct results, and the user sees an empty shelf with no explanation.
+						</div>
+						<p>
+							I watched this happen with exactly the query above. The model decided <code>7</code>
+							was a price and filtered the catalogue down to nothing. The search didn't error. It
+							just returned zero rows, confidently.
+						</p>
+
+						<h2>Treat the model as a compiler</h2>
+						<p>
+							The reframing that fixed it: the model is not answering a question, it is
+							<strong>compiling one language into another</strong>. Natural language in, a
+							constrained filter expression out. Once you think of it as a compiler, the normal
+							rules apply — you need a grammar, you need to define what is <em>not</em> valid, and
+							you need the output to be verifiable before you execute it.
+						</p>
+						<p>Concretely, that meant four rules.</p>
+
+						<h3>1. A number is not a price unless something says it is</h3>
+						<p>
+							Default deny. A bare number is part of the search text, never a filter. It is only
+							promoted to a price when an explicit cue sits next to it — a currency marker, a word
+							like <em>rate</em> or <em>daam</em>, or a comparative like <em>tak</em>,
+							<em>under</em>, <em>se kam</em>, <em>ke upar</em>.
+						</p>
+						<p>
+							Just as important is the inverse list: tokens that <strong>disqualify</strong> a
+							number. Units of weight and volume, the words for size and number, quantity
+							qualifiers. In <code>kids shoes 7 number 400gm 500 rs tak</code>, the
+							<code>7</code> is killed by <em>number</em>, the <code>400</code> is killed by
+							<em>gm</em>, and the <code>500</code> survives because <em>rs</em> and <em>tak</em>
+							both vote for it.
+						</p>
+						<p>
+							This single rule removed the overwhelming majority of bad filters. It is also the
+							rule I would write first if I started again.
+						</p>
+
+						<h3>2. Resolve ranges to numbers, never to expressions</h3>
+						<p>
+							Users say approximate things — <em>around 1000</em>, <em>1000 ki range</em>. The
+							tempting output is something like <code>price &gt;= 1000*0.9</code>. Don't. Emitting
+							arithmetic means your filter language now has an evaluator, and the model will
+							eventually emit arithmetic you didn't anticipate.
+						</p>
+						<p>
+							The rule is that the model must do the arithmetic and emit <strong>literal
+							bounds</strong>: <code>900</code> and <code>1100</code>, never <code>1000*0.9</code>.
+							The output stays a flat, checkable expression, and you can validate it with a regex
+							before it ever reaches the search engine.
+						</p>
+
+						<h3>3. Price lives in more than one column</h3>
+						<p>
+							A real catalogue has several prices per item — a base price, a tax-inclusive price, an
+							MRP. Users don't know which one they mean, and they're right not to care. So a price
+							filter expands to a disjunction across every price-like field rather than guessing at
+							one. Slightly more permissive, dramatically fewer empty results.
+						</p>
+
+						<h3>4. Translate first, then parse</h3>
+						<p>
+							Devanagari input gets transliterated into the same Latin-script form the catalogue is
+							indexed in before any matching happens — <code>चना दाल</code> becomes
+							<code>chana dal</code>. Normalising scripts up front means one index and one matching
+							path rather than a parallel pipeline per script.
+						</p>
+
+						<h2>Show the user what you understood</h2>
+						<p>
+							The highest-value feature turned out to be the smallest. Alongside the filter, the
+							parser emits a short human-readable echo of what it extracted — in the same casual
+							register the user typed in. "kids shoes 500 rupaye tak".
+						</p>
+						<p>
+							This matters for two reasons. When the parse is right, it builds trust: the system
+							visibly understood. When it's wrong, the user can see <em>why</em> they got strange
+							results instead of silently concluding the app is broken. It's also the single best
+							debugging tool I have — a wrong echo tells you immediately whether the fault is in
+							parsing or in retrieval.
+						</p>
+						<div class="callout">
+							The echo has strict rules of its own: mention the product and the price, never
+							internal field names, never JSON, never filters the user didn't ask for. It is a
+							summary for a person, not a debug dump.
+						</div>
+
+						<h2>Attributes you didn't know existed</h2>
+						<p>
+							Price is the easy filter because every catalogue has one. The harder problem is
+							product attributes — colour, size, pack, flavour, material — which vary per category
+							and change as the catalogue grows. Hardcoding them means a code change every time
+							merchandising adds a dimension.
+						</p>
+						<p>
+							So instead of a fixed schema, the pipeline <strong>discovers the filterable
+							attributes at query time</strong> from the result set itself, works out what each one
+							represents from the metadata already attached to the products, and builds the parsing
+							prompt dynamically from what it found. Add a new attribute to the catalogue and search
+							can filter on it without anyone deploying anything.
+						</p>
+
+						<h2>When the filter is too good</h2>
+						<p>
+							A precise parser creates a new failure mode: a query that parses perfectly into four
+							filters, all of which are individually reasonable, which together match zero products.
+							Technically correct, commercially useless.
+						</p>
+						<p>Two mechanisms handle this.</p>
+						<p>
+							<strong>Progressive relaxation.</strong> Apply all the filters. If nothing comes back,
+							drop the last one and retry, and keep going until something matches. Filters are
+							ordered by confidence, so the first thing dropped is the thing the parser was least
+							sure about. The response records how far it had to relax, which is useful both for the
+							UI and for working out which attributes are routinely over-matched.
+						</p>
+						<p>
+							<strong>Strict and union together.</strong> Rather than choosing between "match
+							everything" and "match anything", run both. Products matching every filter are ranked
+							highest; products matching some are kept below them. The two sets merge into one
+							result list with a confidence score attached, so items satisfying both strategies rank
+							above items found by only one. The shelf is never empty, and the best matches are
+							still on top.
+						</p>
+
+						<h2>What I'd do differently</h2>
+						<p>
+							<strong>Write the disqualifier list before the parser.</strong> I built cue detection
+							first and spent far longer than I should have debugging confident, wrong filters. The
+							list of things that mean "this number is not money" is the real core of the feature.
+						</p>
+						<p>
+							<strong>Validate the output shape, not just the content.</strong> Checking the filter
+							expression against a strict grammar before execution catches a whole class of problems
+							at the cheapest possible point. Anything unparseable gets discarded and the search
+							degrades to plain text matching — which is a perfectly good outcome.
+						</p>
+						<p>
+							<strong>Log every parse with its input.</strong> The failures are not random. They
+							cluster around specific phrasings, and you only find the clusters by looking at real
+							queries. Most of the cue list came from reading production logs, not from thinking
+							hard at a desk.
+						</p>
+						<p>
+							The general lesson, if there is one: when you put a language model in front of a
+							database, the interesting engineering isn't the prompt. It's everything you build to
+							constrain what the prompt is allowed to produce, and what happens when it produces it
+							anyway.
+						</p>
+					</div>
+
+					<footer class="article-foot">
+						<p>Written by Harsh Gaur — <a href="/about.html">about me</a></p>
+						<a class="btn" href="/writing/">← All writing</a>
+					</footer>
+				</article>
+			</div>
+		</section>
+	</main>
+
+	<footer>
+		<div class="wrap">
+			<div class="foot-in">
+				<span>© <span id="year">2026</span> Harsh Gaur</span>
+				<span>
+					<a href="/">Home</a> ·
+					<a href="/about.html">About</a> ·
+					<a href="/feed.xml">RSS</a> ·
+					<a href="mailto:harshgaur017@gmail.com">Email</a>
+				</span>
+			</div>
+			<p class="foot-note">
+				Designed and built from scratch <span aria-hidden="true">💻 ☕</span>
+			</p>
+		</div>
+	</footer>
+
+	<script src="/assets/js/site.js" defer></script>
+</body>
+
+</html>

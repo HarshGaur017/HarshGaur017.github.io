@@ -1,0 +1,16 @@
+{
+	"name": "Harsh Gaur — Full-Stack AI Developer",
+	"short_name": "Harsh Gaur",
+	"description": "Distributed backend systems, vector retrieval and production LLM pipelines.",
+	"start_url": "/",
+	"scope": "/",
+	"display": "standalone",
+	"background_color": "#17191E",
+	"theme_color": "#17191E",
+	"lang": "en",
+	"icons": [
+		{ "src": "/assets/img/favicon-192.png", "sizes": "192x192", "type": "image/png", "purpose": "any" },
+		{ "src": "/assets/img/favicon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "any" },
+		{ "src": "/assets/img/favicon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "maskable" }
+	]
+}

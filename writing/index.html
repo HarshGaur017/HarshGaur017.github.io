@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>Writing — Harsh Gaur</title>
+	<meta name="description"
+		content="Notes on retrieval, recommendations and event-driven architecture — multilingual search intent parsing, hybrid recommender scoring, and notification rules engines.">
+	<meta name="theme-color" content="#17191E">
+	<link rel="canonical" href="https://harshgaur017.github.io/writing/">
+	<meta property="og:type" content="website">
+	<meta property="og:site_name" content="Harsh Gaur">
+	<meta property="og:title" content="Writing — Harsh Gaur">
+	<meta property="og:description" content="Notes on retrieval, recommendations and event-driven architecture.">
+	<meta property="og:url" content="https://harshgaur017.github.io/writing/">
+	<meta property="og:image" content="https://harshgaur017.github.io/assets/img/og-banner.png">
+	<meta name="twitter:card" content="summary_large_image">
+	<link rel="icon" type="image/png" href="/assets/img/favicon-192.png">
+	<link rel="manifest" href="/site.webmanifest">
+	<link rel="alternate" type="application/rss+xml" title="Harsh Gaur — Writing" href="/feed.xml">
+	<link rel="stylesheet" href="/assets/css/site.css">
+	<script>
+		(function () {
+			document.documentElement.classList.add("js");
+			try {
+				var saved = localStorage.getItem("theme");
+				if (saved === "light") document.documentElement.setAttribute("data-theme", "light");
+				else if (saved === "dark") document.documentElement.removeAttribute("data-theme");
+			} catch (e) { }
+		})();
+	</script>
+</head>
+
+<body>
+	<a class="skip" href="#main">Skip to content</a>
+	<div class="progress" id="progress" aria-hidden="true"></div>
+	<div class="cursor-glow" id="cursor-glow" aria-hidden="true"></div>
+
+	<nav class="nav" id="nav">
+		<div class="nav-in">
+			<a class="brand" href="/">harsh&#8203;gaur<span style="color:var(--accent)">.</span></a>
+			<div class="nav-links">
+				<a href="/about.html">About</a>
+				<a class="current" href="/writing/">Writing</a>
+				<a href="/#experience">Experience</a>
+				<a href="/#projects">Projects</a>
+				<a href="/#skills">Skills</a>
+				<a class="nav-resume" href="/Harsh_Gaur_SDE_CV.pdf" target="_blank" rel="noopener">Résumé ↗</a>
+			</div>
+		</div>
+	</nav>
+
+	<main id="main">
+		<section class="page-head">
+			<div class="wrap">
+				<span class="eyebrow">Writing</span>
+				<h1>Notes from production</h1>
+				<p class="lead">
+					Mostly about the gap between what a user types and what a database can answer. Search
+					intent, recommendation scoring, and the event-driven plumbing that has to stay correct
+					when the same person holds two roles at once.
+				</p>
+			</div>
+		</section>
+
+		<section style="padding-top:44px">
+			<div class="wrap">
+				<div class="grid reveal">
+
+					<a class="card post-card" href="/writing/which-number-is-the-price.html">
+						<div class="post-meta">Search · 9 min read</div>
+						<h2>Which number is the price?</h2>
+						<p>
+							A retailer types "kids shoes 7 number 400gm 500 rs tak". There are four numbers in
+							that query and exactly one of them is money. Building a query parser for Hindi and
+							Hinglish search, and why I treat the model as a compiler rather than a chatbot.
+						</p>
+						<span class="more">Read →</span>
+					</a>
+
+					<a class="card post-card" href="/writing/four-signals-one-score.html">
+						<div class="post-meta">Recommendations · 8 min read</div>
+						<h2>Four signals, one score</h2>
+						<p>
+							A pure embedding recommender gives you beautiful, useless results: ten products that
+							are semantically identical to the one already in the cart. Why similarity is the wrong
+							objective on its own, and how blending it with co-occurrence, category and attribute
+							signals fixes it.
+						</p>
+						<span class="more">Read →</span>
+					</a>
+
+					<a class="card post-card" href="/writing/who-gets-told-what.html">
+						<div class="post-meta">Architecture · 7 min read</div>
+						<h2>Who gets told what</h2>
+						<p>
+							Every notification started as an <code>if</code> next to the code that caused it.
+							Replacing that with a rules engine, the recipient type that deliberately resolves to
+							nobody, and a duplicate-message bug that only showed up when one person held two roles.
+						</p>
+						<span class="more">Read →</span>
+					</a>
+
+				</div>
+			</div>
+		</section>
+	</main>
+
+	<footer>
+		<div class="wrap">
+			<div class="foot-in">
+				<span>© <span id="year">2026</span> Harsh Gaur</span>
+				<span>
+					<a href="/">Home</a> ·
+					<a href="/about.html">About</a> ·
+					<a href="/feed.xml">RSS</a> ·
+					<a href="https://github.com/HarshGaur017" target="_blank" rel="noopener">GitHub</a> ·
+					<a href="mailto:harshgaur017@gmail.com">Email</a>
+				</span>
+			</div>
+			<p class="foot-note">
+				Designed and built from scratch <span aria-hidden="true">💻 ☕</span>
+			</p>
+		</div>
+	</footer>
+
+	<script src="/assets/js/site.js" defer></script>
+</body>
+
+</html>

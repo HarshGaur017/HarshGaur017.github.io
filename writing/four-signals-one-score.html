@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>Four signals, one score — Harsh Gaur</title>
+	<meta name="description"
+		content="Why a pure embedding recommender returns beautiful, useless results, and how blending vector similarity with co-occurrence, category and attribute signals fixes it.">
+	<meta name="theme-color" content="#17191E">
+	<link rel="canonical" href="https://harshgaur017.github.io/writing/four-signals-one-score.html">
+	<meta property="og:type" content="article">
+	<meta property="og:site_name" content="Harsh Gaur">
+	<meta property="og:title" content="Four signals, one score">
+	<meta property="og:description" content="A pure embedding recommender gives you ten products identical to the one already in the cart. Similarity is the wrong objective on its own.">
+	<meta property="og:url" content="https://harshgaur017.github.io/writing/four-signals-one-score.html">
+	<meta property="og:image" content="https://harshgaur017.github.io/assets/img/og-banner.png">
+	<meta name="twitter:card" content="summary_large_image">
+	<link rel="icon" type="image/png" href="/assets/img/favicon-192.png">
+	<link rel="manifest" href="/site.webmanifest">
+	<link rel="alternate" type="application/rss+xml" title="Harsh Gaur — Writing" href="/feed.xml">
+	<link rel="stylesheet" href="/assets/css/site.css">
+	<script>
+		(function () {
+			document.documentElement.classList.add("js");
+			try {
+				var saved = localStorage.getItem("theme");
+				if (saved === "light") document.documentElement.setAttribute("data-theme", "light");
+				else if (saved === "dark") document.documentElement.removeAttribute("data-theme");
+			} catch (e) { }
+		})();
+	</script>
+</head>
+
+<body>
+	<a class="skip" href="#main">Skip to content</a>
+	<div class="progress" id="progress" aria-hidden="true"></div>
+	<div class="cursor-glow" id="cursor-glow" aria-hidden="true"></div>
+
+	<nav class="nav" id="nav">
+		<div class="nav-in">
+			<a class="brand" href="/">harsh&#8203;gaur<span style="color:var(--accent)">.</span></a>
+			<div class="nav-links">
+				<a href="/about.html">About</a>
+				<a class="current" href="/writing/">Writing</a>
+				<a href="/#experience">Experience</a>
+				<a href="/#projects">Projects</a>
+				<a href="/#skills">Skills</a>
+				<a class="nav-resume" href="/Harsh_Gaur_SDE_CV.pdf" target="_blank" rel="noopener">Résumé ↗</a>
+			</div>
+		</div>
+	</nav>
+
+	<main id="main">
+		<section style="padding-top:64px">
+			<div class="wrap">
+				<article class="article">
+					<header class="article-head">
+						<div class="post-meta">Recommendations · 8 min read</div>
+						<h1>Four signals, one score</h1>
+						<p class="standfirst">
+							My first recommendation engine was pure vector similarity, and its results were
+							beautiful and useless: ten products nearly identical to the one already in the
+							cart. Similarity turns out to be the wrong objective on its own.
+						</p>
+					</header>
+
+					<div class="article-body">
+						<p>
+							Vector search makes recommendations look easy. Embed every product, store the vectors,
+							take a nearest-neighbour query, ship it. The first version took an afternoon and the
+							output was genuinely impressive — semantically coherent, no hand-built taxonomy, new
+							products covered the moment they were embedded.
+						</p>
+						<p>
+							Then I looked at what it recommended next to a 1 kg bag of rice. Nine other bags of
+							rice and a 5 kg bag of the same rice.
+						</p>
+
+						<h2>Similar is not the same as useful</h2>
+						<p>
+							The model was working exactly as designed. The bug was in my objective. Embedding
+							similarity answers "what else is like this?", and for a retailer who has already
+							chosen their rice, the answer to that question has no commercial value whatsoever.
+						</p>
+						<div class="callout">
+							<strong>Nearest neighbour is a similarity metric, not a recommendation strategy.</strong>
+							The most similar item to something in the cart is usually a substitute — and a
+							substitute is the one thing the buyer has already decided against.
+						</div>
+						<p>
+							What a wholesale buyer actually wants falls into three different shapes, and they need
+							different signals:
+						</p>
+						<ul>
+							<li><strong>Cross-sell</strong> — what goes <em>with</em> this. Bought rice, needs oil and pulses.</li>
+							<li><strong>Upsell</strong> — the same thing, better margin or bigger pack.</li>
+							<li><strong>Similar items</strong> — genuine substitutes, for when something is out of stock.</li>
+						</ul>
+						<p>
+							Only the third is a similarity problem. I had built one engine and pointed it at three
+							jobs.
+						</p>
+
+						<h2>The signal embeddings cannot see</h2>
+						<p>
+							Cross-sell is fundamentally behavioural. Rice and cooking oil are not semantically
+							similar in any meaningful sense — no embedding model will place them close together —
+							but they appear in the same order constantly. That relationship only exists in
+							transaction history.
+						</p>
+						<p>
+							The classic tool is market-basket analysis, and the metric that matters is
+							<strong>lift</strong>: how much more often two products are bought together than you
+							would expect if the purchases were independent. Raw co-occurrence counts are a trap,
+							because they just rank your bestsellers — everything co-occurs with the most popular
+							item. Lift normalises that away.
+						</p>
+						<p>Two guards made this usable:</p>
+						<ol>
+							<li>
+								<strong>A lift floor.</strong> Below the independence threshold, a pair is noise.
+								Those rows get discarded rather than ranked low, because a weak signal that
+								survives into the blend can still outvote a strong one when other signals are
+								quiet.
+							</li>
+							<li>
+								<strong>A minimum basket count.</strong> A pair seen once has infinite apparent
+								lift and no information. Requiring a handful of independent baskets before a pair
+								is eligible removes the long tail of coincidence that otherwise dominates the top
+								of the list.
+							</li>
+						</ol>
+						<p>
+							Co-occurrence is computed offline as a batch job rather than at request time. The
+							queries are aggregate scans over order history — perfectly cheap nightly, completely
+							unacceptable in a request path with a latency budget in the tens of milliseconds.
+						</p>
+
+						<h2>Blending, and why one number wins</h2>
+						<p>
+							With two signals that disagree, you need a resolution strategy. Serving them as
+							separate carousels is tempting and I'd argue it's usually wrong: it pushes the
+							decision onto the user, and it means two mediocre lists instead of one good one.
+						</p>
+						<p>
+							So every candidate pair gets a single blended score from four weighted signals:
+						</p>
+						<ul>
+							<li><strong>Embedding similarity</strong> — the dominant signal, and the only one with coverage for brand-new products.</li>
+							<li><strong>Category affinity</strong> — a strong structural prior. Catalogue hierarchy is hand-curated and therefore high quality, and it keeps results plausible when embeddings drift.</li>
+							<li><strong>Shared attributes</strong> — brand, pack size, variant. A sharpener rather than a driver.</li>
+							<li><strong>Co-occurrence lift</strong> — sparse but, where present, the most commercially predictive signal of the four.</li>
+						</ul>
+						<p>
+							Embedding carries the largest weight because it is the only signal that is never
+							missing. Co-occurrence carries a small one <em>despite</em> being the most predictive,
+							precisely because it is sparse — weighting it heavily would make recommendations
+							lurch between excellent and random depending on whether history happened to exist for
+							that pair.
+						</p>
+						<div class="callout">
+							The weights are not learned. They were set by hand, reviewed against real output, and
+							adjusted. With no click-through data to train on, a transparent hand-tuned blend you
+							can reason about beats a learned one you cannot — and it gives you something to
+							replace later when the data does exist.
+						</div>
+
+						<h2>The embedding text matters more than the model</h2>
+						<p>
+							The biggest single quality jump did not come from changing embedding model or
+							dimensionality. It came from changing <em>what text I embedded</em>.
+						</p>
+						<p>
+							Version one embedded the product name. Product names in a wholesale catalogue are
+							terrible: abbreviated, inconsistently capitalised, full of pack codes, sometimes just
+							a brand and a number. The vectors clustered on naming conventions rather than on what
+							the products were.
+						</p>
+						<p>
+							Version two embedded a composed document — name, plus category path, plus structured
+							attributes, plus the generated tags from our auto-tagging pipeline. Same model, same
+							dimensions, dramatically better neighbourhoods. Garbage in, garbage out applies to
+							embeddings with unusual force, because the failure is silent: you still get a vector,
+							it still has neighbours, and nothing in the system reports that they're meaningless.
+						</p>
+
+						<h2>Three operational lessons</h2>
+						<p>
+							<strong>Pin your dimensionality early.</strong> I changed embedding configuration
+							mid-build and ended up with vectors of two different widths in the same column. There
+							is no graceful degradation here — the distance operator simply fails. A migration that
+							re-embeds everything is the only fix, so decide once and write it down.
+						</p>
+						<p>
+							<strong>Index for the operator you actually query with.</strong> An approximate vector
+							index has to be built for the distance function you use. Build it for one and query
+							with another and it is silently ignored — you get correct results from a sequential
+							scan and wonder why latency is terrible under load.
+						</p>
+						<p>
+							<strong>Set a score floor and let the shelf be short.</strong> It is tempting to
+							always return a full row. Resist it. Below a confidence threshold the suggestions are
+							actively harmful to trust, and four good recommendations beat four good ones followed
+							by six bad ones. Returning fewer is a feature.
+						</p>
+
+						<h2>What I'd build next</h2>
+						<p>
+							The honest limitation of a hand-tuned blend is that nobody knows whether the weights
+							are right. They are defensible, not optimal. The next step is instrumenting impressions
+							and clicks per recommendation slot, which gives you both an evaluation signal and
+							eventually training data — and lets you replace a reasonable guess with a measurement.
+						</p>
+						<p>
+							I would also separate the three recommendation types further. They currently share a
+							scoring pipeline with different weights, which is an efficient implementation but
+							slightly dishonest about how different the underlying questions are. Substitutes and
+							complements are nearly opposite objectives, and eventually that deserves two systems
+							rather than one with a parameter.
+						</p>
+					</div>
+
+					<footer class="article-foot">
+						<p>Written by Harsh Gaur — <a href="/about.html">about me</a></p>
+						<a class="btn" href="/writing/">← All writing</a>
+					</footer>
+				</article>
+			</div>
+		</section>
+	</main>
+
+	<footer>
+		<div class="wrap">
+			<div class="foot-in">
+				<span>© <span id="year">2026</span> Harsh Gaur</span>
+				<span>
+					<a href="/">Home</a> ·
+					<a href="/about.html">About</a> ·
+					<a href="/feed.xml">RSS</a> ·
+					<a href="mailto:harshgaur017@gmail.com">Email</a>
+				</span>
+			</div>
+			<p class="foot-note">
+				Designed and built from scratch <span aria-hidden="true">💻 ☕</span>
+			</p>
+		</div>
+	</footer>
+
+	<script src="/assets/js/site.js" defer></script>
+</body>
+
+</html>

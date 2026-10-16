@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>About — Harsh Gaur</title>
+	<meta name="description"
+		content="Harsh Gaur — Full-Stack AI Developer at Mulltiply, Noida. From IoT and an RFID access-control build, to React Native at production scale, to distributed backend systems and applied AI.">
+	<meta name="theme-color" content="#17191E">
+	<link rel="canonical" href="https://harshgaur017.github.io/about.html">
+	<meta property="og:type" content="profile">
+	<meta property="og:site_name" content="Harsh Gaur">
+	<meta property="og:title" content="About — Harsh Gaur">
+	<meta property="og:description" content="From IoT and RFID access control, to React Native at production scale, to distributed backend systems and applied AI.">
+	<meta property="og:url" content="https://harshgaur017.github.io/about.html">
+	<meta property="og:image" content="https://harshgaur017.github.io/assets/img/og-banner.png">
+	<meta name="twitter:card" content="summary_large_image">
+	<link rel="icon" type="image/png" href="/assets/img/favicon-192.png">
+	<link rel="manifest" href="/site.webmanifest">
+	<link rel="alternate" type="application/rss+xml" title="Harsh Gaur — Writing" href="/feed.xml">
+	<link rel="stylesheet" href="/assets/css/site.css">
+	<script>
+		(function () {
+			document.documentElement.classList.add("js");
+			try {
+				var saved = localStorage.getItem("theme");
+				if (saved === "light") document.documentElement.setAttribute("data-theme", "light");
+				else if (saved === "dark") document.documentElement.removeAttribute("data-theme");
+			} catch (e) { }
+		})();
+	</script>
+</head>
+
+<body>
+	<a class="skip" href="#main">Skip to content</a>
+	<div class="progress" id="progress" aria-hidden="true"></div>
+	<div class="cursor-glow" id="cursor-glow" aria-hidden="true"></div>
+
+	<nav class="nav" id="nav">
+		<div class="nav-in">
+			<a class="brand" href="/">harsh&#8203;gaur<span style="color:var(--accent)">.</span></a>
+			<div class="nav-links">
+				<a class="current" href="/about.html">About</a>
+				<a href="/writing/">Writing</a>
+				<a href="/#experience">Experience</a>
+				<a href="/#projects">Projects</a>
+				<a href="/#skills">Skills</a>
+				<a class="nav-resume" href="/Harsh_Gaur_SDE_CV.pdf" target="_blank" rel="noopener">Résumé ↗</a>
+			</div>
+		</div>
+	</nav>
+
+	<main id="main">
+		<section class="page-head">
+			<div class="wrap">
+				<span class="eyebrow">About</span>
+				<h1>Harsh Gaur</h1>
+				<p class="lead">
+					I'm a Full-Stack AI Developer at Mulltiply, where I design distributed backend systems —
+					event-driven queues, GraphQL APIs, vector retrieval and production LLM pipelines — and the
+					React Native clients that consume them. I started on mobile, moved to backend, and now work
+					mostly where the two meet applied AI.
+				</p>
+			</div>
+		</section>
+
+		<section style="padding-top:40px">
+			<div class="wrap">
+				<dl class="facts reveal">
+					<div class="fact">
+						<dt>Role</dt>
+						<dd>Full-Stack AI Developer, Mulltiply</dd>
+					</div>
+					<div class="fact">
+						<dt>Location</dt>
+						<dd>Noida, Uttar Pradesh, India</dd>
+					</div>
+					<div class="fact">
+						<dt>Focus</dt>
+						<dd>Distributed backends, vector retrieval, applied LLM systems</dd>
+					</div>
+					<div class="fact">
+						<dt>Core stack</dt>
+						<dd>Node.js · TypeScript · PostgreSQL · pgvector · Redis · BullMQ · React Native</dd>
+					</div>
+					<div class="fact">
+						<dt>Education</dt>
+						<dd>B.Tech CSE (IoT), RKGIT Ghaziabad</dd>
+					</div>
+					<div class="fact">
+						<dt>Contact</dt>
+						<dd><a href="mailto:harshgaur017@gmail.com">harshgaur017@gmail.com</a></dd>
+					</div>
+				</dl>
+			</div>
+		</section>
+
+		<section>
+			<div class="wrap">
+				<h2 class="section-title">Background</h2>
+				<div class="story reveal" style="margin-top:28px">
+
+					<h3>Hardware first</h3>
+					<span class="when">B.Tech CSE (IoT) · RKGIT, Ghaziabad</span>
+					<p>
+						I came into software through hardware. My degree was computer science with an IoT
+						specialisation, and what actually held my attention was devices and the systems around
+						them — sensor networks, how a physical thing talks to a server, what happens when the
+						network is unreliable. The project that made it click was an <strong>RFID door-lock
+						access system</strong>: a reader, a controller, an access policy, and a server that had
+						to stay correct even when the link dropped.
+					</p>
+					<p>
+						That's a small system, but it has the shape of every system I've worked on since —
+						something at the edge producing messy input, something in the middle deciding what it
+						means, and a store of record that has to stay consistent regardless.
+					</p>
+
+					<h3>Learning how production apps actually work</h3>
+					<span class="when">September 2024 · React Native intern → full-time, February 2025</span>
+					<p>
+						I joined Mulltiply on <strong>23 September 2024</strong> as a React Native intern, and
+						moved to a full-time engineering role in <strong>February 2025</strong>. The company
+						builds B2B commerce for Indian retail — a buyer app for retailers and a management app
+						for distributors — and I was handed real screens in a real codebase from the start.
+					</p>
+					<p>
+						What I was really learning was how apps like Blinkit and Zomato hold together at
+						production scale: how state is managed when every screen needs live stock and pricing,
+						how navigation and deep links behave when a notification can drop you anywhere in the
+						app, and why rendering performance stops being a detail once your list has thousands of
+						SKUs in it. I started by building modules and profiling the slow ones, which is a good
+						way to learn a codebase — you have to read everything.
+					</p>
+
+					<h3>Owning the retailer app</h3>
+					<span class="when">2025 · MulltiplyR</span>
+					<p>
+						Over 2025 I took on <strong>MulltiplyR</strong>, the retailer-facing quick-commerce app,
+						and ended up its second-highest contributor of fourteen across the project's whole
+						history. I authored sixteen screens and twelve reusable components — payments, wallet,
+						credit applications, bulk quotes, seller comparison, shop onboarding — plus the app's
+						analytics layer and its lazy-loading architecture.
+					</p>
+					<p>
+						The piece I'm most pleased with is the home experience. Rather than hardcoding the home
+						screen, we built it so the <strong>admin panel controls which modules appear, in what
+						order, and with what content</strong> — deals, tickers, recommendations, advertisements,
+						quick-order lists — and the app renders whatever the backend describes. That pattern is
+						called <strong>Server-Driven UI</strong>, and it's the same approach Blinkit and Swiggy
+						use: merchandising changes ship without an app release, and you can reorder a storefront
+						for a campaign in minutes instead of waiting on review.
+					</p>
+					<p>
+						Both apps are live — <a href="https://play.google.com/store/apps/details?id=com.mulltiply.mulltiplyr"
+						target="_blank" rel="noopener">MulltiplyR</a> and the distributor app (shipped as
+						MulltiplyAI on iOS) are on <strong>Google Play and the App Store</strong>.
+					</p>
+
+					<h3>The switch to backend</h3>
+					<span class="when">December 2025</span>
+					<p>
+						In December 2025 I moved to the backend, and I can point at the exact commit. My first
+						branch was <code>interaction_preference</code>, and the first thing I built was a
+						<strong>user preference and interaction scoring system</strong> — capturing what a
+						retailer browses, searches and reorders, turning that into preference scores, and using
+						<strong>pgvector semantic similarity</strong> to connect those signals to items they had
+						never explicitly looked at.
+					</p>
+					<p>
+						It was a good first backend project precisely because it wasn't only backend. It needed
+						a schema that could absorb a high write volume of interaction events, embeddings that
+						stayed meaningful as the catalogue changed, and an LLM step to make the output
+						explainable to a human. Within the same fortnight I was also working on search — the
+						beginning of the Hinglish query parser I still maintain.
+					</p>
+
+					<h3>Backend, with AI in the middle of it</h3>
+					<span class="when">2026 · present</span>
+					<p>
+						Since then I've worked almost entirely on distributed backend systems, and in practice
+						most of them have an AI component somewhere in the path rather than bolted on at the
+						edge. I built a search layer that compiles natural-language Hindi and Hinglish queries
+						into structured search filters; a recommendation engine that blends vector similarity
+						with behavioural co-occurrence; an OCR pipeline that turns photographed invoices into
+						order lines with an LLM structuring pass; and voice ordering, which is speech to
+						transcript to parsed cart.
+					</p>
+					<p>
+						The less glamorous half is the part I'd argue matters more: event-driven queues and
+						workers, a configurable notification rules engine that took routine changes off the
+						deploy path, and bidirectional synchronisation with four different ERP systems that were
+						never designed to be integrated with. Across all of it I've authored
+						<strong>2,483 commits</strong> and created sixteen backend modules from scratch.
+					</p>
+					<p>
+						What I'm working on next is the infrastructure layer underneath all this —
+						<strong>Kubernetes and ArgoCD</strong>, <strong>Postgres query planning</strong>, and
+						multi-agent orchestration with LangGraph. I like problems where the input is
+						unpredictable and the output still has to be exactly right.
+					</p>
+				</div>
+			</div>
+		</section>
+
+		<section>
+			<div class="wrap reveal">
+				<h2 class="section-title">Contact</h2>
+				<p class="section-sub">
+					Email is fastest. I read everything that isn't a bulk send.
+				</p>
+				<div class="cta-row">
+					<a class="btn btn-primary" href="mailto:harshgaur017@gmail.com">Email me</a>
+					<a class="btn" href="/writing/">Read my writing</a>
+					<a class="btn" href="https://github.com/HarshGaur017" target="_blank" rel="noopener">GitHub</a>
+					<a class="btn" href="https://www.linkedin.com/in/harsh-gaur-520a73258" target="_blank" rel="noopener">LinkedIn</a>
+				</div>
+			</div>
+		</section>
+	</main>
+
+	<footer>
+		<div class="wrap">
+			<div class="foot-in">
+				<span>© <span id="year">2026</span> Harsh Gaur</span>
+				<span>
+					<a href="/">Home</a> ·
+					<a href="/writing/">Writing</a> ·
+					<a href="https://github.com/HarshGaur017" target="_blank" rel="noopener">GitHub</a> ·
+					<a href="https://www.linkedin.com/in/harsh-gaur-520a73258" target="_blank" rel="noopener">LinkedIn</a> ·
+					<a href="mailto:harshgaur017@gmail.com">Email</a>
+				</span>
+			</div>
+			<p class="foot-note">
+				Designed and built from scratch <span aria-hidden="true">💻 ☕</span>
+			</p>
+		</div>
+	</footer>
+
+	<script src="/assets/js/site.js" defer></script>
+</body>
+
+</html>
