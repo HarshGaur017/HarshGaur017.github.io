@@ -36,7 +36,7 @@ LinkedIn: https://www.linkedin.com/in/harsh-gaur-520a73258
 
 ## Projects
 
-- [MulltiplyR](https://play.google.com/store/apps/details?id=com.mulltiply.mulltiplyr): B2B retail marketplace, live on the Play Store. React Native/Expo, TypeScript, Redux Toolkit, Reanimated. 10,000+ SKUs, real-time stock, GST invoicing, multilingual UI, deep linking, RBAC, OTA updates. 1,023 commits, 16 screens, 12 components, 8-module Mixpanel analytics layer, ~40% faster cold start.
+- [MulltiplyR](https://apps.apple.com/in/app/mulltiplyr/id6702022843): B2B retail marketplace, live on the App Store. React Native/Expo, TypeScript, Redux Toolkit, Reanimated. 10,000+ SKUs, real-time stock, GST invoicing, multilingual UI, deep linking, RBAC, OTA updates. 1,023 commits, 16 screens, 12 components, 8-module Mixpanel analytics layer, ~40% faster cold start.
 - AI Business Operations Assistant: multi-tenant RAG platform for querying an organisation's internal documents. TypeScript, Express 5, PostgreSQL with pgvector (1536-dimension embeddings, ivfflat cosine index), org-scoped foreign-key tenant isolation, document versioning, and a hand-rolled Postgres job queue driving the embedding worker.
 - DevFlow: AI engineering workspace that harvests GitHub history (including private organisation repositories) and synthesises a career and impact report. Next.js, Express, Prisma, PostgreSQL, Redis, Turborepo. Walks the GitHub GraphQL API with author-filtered commit pagination, exponential backoff honouring rate-limit hints, and a fixed-size concurrency pool.
 
